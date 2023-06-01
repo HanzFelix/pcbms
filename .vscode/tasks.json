@@ -2,6 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Start PCBMS Server",
+      "dependsOn": [
+        "Run PHP Server",
+        "Start MySQL Server",
+        "Start Apache Server"
+      ]
+    },
+    {
       "label": "Run PHP Server",
       "type": "shell",
       "command": "php",
