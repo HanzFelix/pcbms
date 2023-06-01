@@ -13,11 +13,11 @@
             theme: {
                 extend: {
                     colors: {
-                        txt: '#190727',
-                        shade: '#f6eefc',
-                        primary: '#703854',
-                        secondary: '#e7d3f8',
-                        accent: '#446c97',
+                        txt: '#072227',
+                        shade: '#eefafc',
+                        primary: '#449748',
+                        secondary: '#d3f3f8',
+                        accent: '#384470',
                     }
                 }
             }
