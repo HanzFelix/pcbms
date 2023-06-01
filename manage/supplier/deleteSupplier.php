@@ -1,5 +1,5 @@
 <?php
-include "../models/mgtDAO.php";
+include "../../models/mgtDAO.php";
 
 $mgtdao = new MgtDAO();
 
