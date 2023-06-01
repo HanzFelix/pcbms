@@ -1,5 +1,5 @@
 <?php
-include "../models/connectionDAO.php";
+include "../../models/connectionDAO.php";
 
 class MgtDAO extends ConnectionDAO
 {
