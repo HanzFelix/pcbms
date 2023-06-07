@@ -30,7 +30,7 @@ $sessionuser = $_SESSION["username"] . " - " . $_SESSION["role"];
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-accent hover:text-white">
+                                <a href="/manage/delivery/" class="block px-4 py-2 hover:bg-accent hover:text-white">
                                     Product Delivery
                                 </a>
                             </li>
