@@ -3,7 +3,7 @@
 include "../../models/mgtDAO.php";
 
 $mgtdao = new MgtDAO();
-$company = $_GET['q'];
+$company = $_GET['search-input'];
 
 $result = $mgtdao->getSuppliers($company);
 // Build the HTML dropdown with the search results
