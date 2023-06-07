@@ -12,10 +12,10 @@ include "../../components/navigationBar.php"
     <h2 class="text-center text-2xl p-4 font-semibold">Supplier Data CRUD</h2>
     <div class="flex gap-4 px-4 items-start">
         <section class="flex flex-col w-3/12 gap-2">
-            <div class="flex">
-                <input class="w-full" type="text" name="" id="search" placeholder="Type few letters here" />
-                <button class="bg-primary text-white py-2 px-4 rounded-r-md" id="search-button">GO</button>
-            </div>
+            <form class="flex" action="#" id="search-form">
+                <input class="w-full" type="text" name="search-input" id="search-input" placeholder="Type few letters here" />
+                <button class="bg-primary text-white py-2 px-4 rounded-r-md" type="submit" id="search-button">GO</button>
+            </form>
             <div multiple id="search-results" class="min-h-[12rem] flex flex-col items-stretch">
 
             </div>
@@ -59,50 +59,6 @@ include "../../components/navigationBar.php"
 </main>
 
 <script>
-    // show all results on load
-    search('');
-    // Add event listener to the search button
-    document.getElementById('search-button').addEventListener('click', function() {
-        var searchQuery = document.getElementById('search').value;
-
-        search(searchQuery);
-    });
-    document.getElementById('new-button').addEventListener('click', function() {
-        clearText(false);
-        setCrudMode("create");
-    });
-
-
-    function search(query) {
-        // Create a new XMLHttpRequest object
-        var xhr = new XMLHttpRequest();
-
-        // Define the AJAX request
-        xhr.open('GET', '../supplier/searchSupplier.php?q=' + query, true);
-
-        // Define the callback function when the response is received
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Update the search results container
-                document.getElementById('search-results').innerHTML = xhr.responseText;
-
-                // add event listener to container when selecting a specific option
-                document.getElementById('search-results').addEventListener('click', function(e) {
-                    // if selected container
-                    if (!e.target.value) {
-                        return;
-                    }
-                    var supp_id = e.target.value;
-
-                    getSupplier(supp_id);
-                });
-            }
-        };
-
-        // Send the AJAX request
-        xhr.send();
-    }
-
     function getSupplier(query) {
         // Create a new XMLHttpRequest object
         var xhr = new XMLHttpRequest();
@@ -135,43 +91,43 @@ include "../../components/navigationBar.php"
     }
 
     function setCrudMode(state) {
-        var delbtn = document.getElementById('delete-button');
-        var savbtn = document.getElementById('save-button');
-        var crtbtn = document.getElementById('create-button');
+        var delbtn = $('#delete-button');
+        var savbtn = $('#save-button');
+        var crtbtn = $('#create-button');
         switch (state) {
             case "update":
-                delbtn.hidden = false;
-                savbtn.hidden = false;
-                crtbtn.hidden = true;
+                delbtn.show();
+                savbtn.show();
+                crtbtn.hide();
                 break;
             case "create":
-                delbtn.hidden = true;
-                savbtn.hidden = true;
-                crtbtn.hidden = false;
+                delbtn.hide();
+                savbtn.hide();
+                crtbtn.show();
                 break;
             default:
-                delbtn.hidden = true;
-                savbtn.hidden = true;
-                crtbtn.hidden = true;
+                delbtn.hide();
+                savbtn.hide();
+                crtbtn.hide();
                 break;
         }
     }
 
     function clearText(isDisabled) {
-        document.getElementById('id').value = 0;
-        document.getElementById('company-name').value = "";
-        document.getElementById('contact-person').value = "";
-        document.getElementById('sex').value = "";
-        document.getElementById('address').value = "";
-        document.getElementById('phone').value = "";
+        $('#id').val(0);
+        $('#company-name').val("");
+        $('#contact-person').val("");
+        $('#sex').val("");
+        $('#address').val("");
+        $('#phone').val("");
 
-        // $("#company-name", "#contact-person").prop('disabled', isDisabled)
-        document.getElementById('company-name').disabled = isDisabled;
-        document.getElementById('contact-person').disabled = isDisabled;
-        document.getElementById('sex').disabled = isDisabled;
-        document.getElementById('address').disabled = isDisabled;
-        document.getElementById('phone').disabled = isDisabled;
+        $('#company-name').prop('disabled', isDisabled);
+        $('#contact-person').prop('disabled', isDisabled);
+        $('#sex').prop('disabled', isDisabled);
+        $('#address').prop('disabled', isDisabled);
+        $('#phone').prop('disabled', isDisabled);
     }
+
 
     $(document).ready(function() {
         $('#supplier-form').submit(function(event) {
@@ -185,42 +141,42 @@ include "../../components/navigationBar.php"
                 case "create":
                     $.ajax({
                         type: 'POST',
-                        url: '../manage/createSupplier.php',
+                        url: '../supplier/createSupplier.php',
                         data: formData,
                         success: function(response) {
                             // Display the response from the PHP page
                             // $('#response').html(response);
                             clearText(true);
                             setCrudMode("");
-                            document.getElementById('search-button').click();
+                            $('#search-form').submit();
                         }
                     });
                     break;
                 case "update":
                     $.ajax({
                         type: 'POST',
-                        url: '../manage/updateSupplier.php',
+                        url: '../supplier/updateSupplier.php',
                         data: formData,
                         success: function(response) {
                             // Display the response from the PHP page
                             // $('#response').html(response);
                             clearText(true);
                             setCrudMode("");
-                            document.getElementById('search-button').click();
+                            $('#search-form').submit();
                         }
                     });
                     break;
                 case "delete":
                     $.ajax({
                         type: 'POST',
-                        url: '../manage/deleteSupplier.php',
+                        url: '../supplier/deleteSupplier.php',
                         data: formData,
                         success: function(response) {
                             // Display the response from the PHP page
                             // $('#response').html(response);
                             clearText(true);
                             setCrudMode("");
-                            document.getElementById('search-button').click();
+                            $('#search-form').submit();
                         }
                     });
                     break;
@@ -231,6 +187,46 @@ include "../../components/navigationBar.php"
             // Proceed with form submission or prevent it based on your requirements
             // $(this).unbind('submit').submit();
         });
+
+
+        // Add event listener to the search button
+        $('#search-form').submit(function(event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '../supplier/searchSupplier.php',
+                method: 'GET',
+                data: formData,
+                success: function(response) {
+                    // Update the search results container
+                    $('#search-results').html(response);
+
+                    // Add event listener to container when selecting a specific option
+                    $('#search-results').on('click', function(e) {
+                        // If selected container
+                        if (!$(e.target).val()) {
+                            return;
+                        }
+                        var supp_id = $(e.target).val();
+
+                        getSupplier(supp_id);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors, if any
+                    console.log(error);
+                }
+            });
+        });
+
+        $('#new-button').on('click', function() {
+            clearText(false);
+            setCrudMode("create");
+        });
+
+        // show all results on ready
+        $('#search-form').submit();
     });
 </script>
 

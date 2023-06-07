@@ -130,24 +130,24 @@ include "../../components/navigationBar.php"
     }
 
     function setCrudMode(state) {
-        var delbtn = document.getElementById('delete-button');
-        var savbtn = document.getElementById('save-button');
-        var crtbtn = document.getElementById('create-button');
+        var delbtn = $('#delete-button');
+        var savbtn = $('#save-button');
+        var crtbtn = $('#create-button');
         switch (state) {
             case "update":
-                delbtn.hidden = false;
-                savbtn.hidden = false;
-                crtbtn.hidden = true;
+                delbtn.show();
+                savbtn.show();
+                crtbtn.hide();
                 break;
             case "create":
-                delbtn.hidden = true;
-                savbtn.hidden = true;
-                crtbtn.hidden = false;
+                delbtn.hide();
+                savbtn.hide();
+                crtbtn.show();
                 break;
             default:
-                delbtn.hidden = true;
-                savbtn.hidden = true;
-                crtbtn.hidden = true;
+                delbtn.hide();
+                savbtn.hide();
+                crtbtn.hide();
                 break;
         }
     }
