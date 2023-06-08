@@ -119,7 +119,11 @@ include "../../components/navigationBar.php"
         </form-->
     </div>
 </main>
-
+<dialog class="backdrop:backdrop-brightness-50 rounded-xl" id="customDialog">
+    <h1 class="text-2xl font-bold" id="testh1">a</h1>
+    <div>body</div>
+    <footer><button>a</button></footer>
+</dialog>
 <script>
     function getConsignedDetails(query) {
         // Create a new XMLHttpRequest object
@@ -158,15 +162,17 @@ include "../../components/navigationBar.php"
                 $('#tbody').html(response);
 
                 // Add event listener to container when selecting a specific option
-                /*$('#search-results').on('click', function(e) {
+                $('#tbody').on('click', function(e) {
                     // If selected container
                     if (!$(e.target).val()) {
                         return;
                     }
-                    var supp_id = $(e.target).val();
+                    var cp_id = $(e.target).val();
+                    $("#testh1").text(cp_id);
+                    document.getElementById("customDialog").showModal();
 
-                    getConsignedDetails(supp_id);
-                });*/
+                    //getConsignedDetails(supp_id);
+                });
             },
             error: function(xhr, status, error) {
                 // Handle errors, if any
