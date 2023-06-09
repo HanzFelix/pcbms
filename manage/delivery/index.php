@@ -27,13 +27,14 @@ include "../../components/navigationBar.php"
             <table class="text-left rounded-md overflow-hidden w-full">
                 <thead class="bg-accent bg-opacity-75 text-white border-primary sticky">
                     <th class="px-4 py-2">Product Name (Qty)</th>
+                    <th class="px-4 py-2">Barcode</th>
                     <th class="px-4 py-2">Particular</th>
                     <th class="px-4 py-2">Expiry Date</th>
                     <th class="px-4 py-2">Unit Price</th>
                     <th class="px-4 py-2">Selling Price</th>
                     <th class="px-4 py-2">Action</th>
                 </thead>
-                <tbody id="tbody">
+                <tbody id="tbody"><!--
                     <tr class="bg-accent bg-opacity-10">
                         <td class="px-4 py-2">Potato Chips (x15) </td>
                         <td class="px-4 py-2">50 grams per bag</td>
@@ -75,7 +76,7 @@ include "../../components/navigationBar.php"
                         <td class="px-4 py-2">Php 50.00</td>
                         <td class="px-4 py-2">Php 100.00</td>
                         <td class="px-4 py-2">Edit Del</td>
-                    </tr>
+                    </tr>-->
                 </tbody>
             </table>
             <div>
@@ -119,10 +120,46 @@ include "../../components/navigationBar.php"
         </form-->
     </div>
 </main>
-<dialog class="backdrop:backdrop-brightness-50 rounded-xl" id="customDialog">
-    <h1 class="text-2xl font-bold" id="testh1">a</h1>
-    <div>body</div>
-    <footer><button>a</button></footer>
+<dialog class="backdrop:backdrop-brightness-50 rounded-xl bg-secondary border-t-4 border-primary p-4" id="customDialog">
+    <form class="flex flex-col gap-4" action="#" id="supplier-form">
+        <h1 class="text-2xl font-bold" id="testh1">a</h1>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Product</p>
+            <input name="product" id="product" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Barcode</p>
+            <input name="barcode" id="barcode" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Particulars</p>
+            <input name="particulars" id="particulars" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Expiry Date</p>
+            <input name="expiry-date" id="expiry-date" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Unit price</p>
+            <input name="unit-price" id="unit-price" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Selling price</p>
+            <input name="selling-price" id="selling-price" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Quantity</p>
+            <input name="quantity" id="quantity" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Amount</p>
+            <input name="amount" id="amount" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <footer class="flex justify-end gap-2">
+            <button id="save-consigned-product" class="bg-primary text-white py-2 px-4 rounded-md" value="0">Save</button>
+            <button id="delete-consigned-product" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Delete</button>
+        </footer>
+    </form>
 </dialog>
 <script>
     function getConsignedDetails(query) {
@@ -137,12 +174,12 @@ include "../../components/navigationBar.php"
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Update the search results container
                 var consigned_details = JSON.parse(xhr.responseText);
+                getConsignedProducts(consigned_details.cd_id);
                 $('#id').val(consigned_details.cd_id);
                 $('#supplier-name').text(consigned_details.supp_id);
                 $('#username').text(consigned_details.userid);
                 $('#date').text(consigned_details.date_delivered);
                 setCrudMode("update");
-                getConsignedProducts(consigned_details.cd_id)
             }
         };
 
@@ -163,15 +200,13 @@ include "../../components/navigationBar.php"
 
                 // Add event listener to container when selecting a specific option
                 $('#tbody').on('click', function(e) {
-                    // If selected container
+                    // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;
                     }
                     var cp_id = $(e.target).val();
-                    $("#testh1").text(cp_id);
+                    getConsignedProduct(cp_id);
                     document.getElementById("customDialog").showModal();
-
-                    //getConsignedDetails(supp_id);
                 });
             },
             error: function(xhr, status, error) {
@@ -179,6 +214,37 @@ include "../../components/navigationBar.php"
                 console.log(error);
             }
         });
+    }
+
+    function getConsignedProduct(query) {
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Define the AJAX request
+        xhr.open('GET', '../delivery/getConsignedProduct.php?id=' + query, true);
+
+        // Define the callback function when the response is received
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Update the search results container
+                var consigned_product = JSON.parse(xhr.responseText);
+                $("#testh1").text(consigned_product.prod_id);
+                $('#save-consigned-product').val(consigned_product.item_id);
+                $('#delete-consigned-product').val(consigned_product.item_id);
+                $('#product').val(consigned_product.prod_id);
+                $('#barcode').val(consigned_product.barcode);
+                $('#particulars').val(consigned_product.particulars);
+                $('#expiry-date').val(consigned_product.expiry_date);
+                $('#unit-price').val(consigned_product.unit_price);
+                $('#selling-price').val(consigned_product.selling_price);
+                $('#quantity').val(consigned_product.quantity);
+                $('#amount').val(consigned_product.amount);
+                setCrudMode("update");
+            }
+        };
+
+        // Send the AJAX request
+        xhr.send();
     }
 
     function setCrudMode(state) {

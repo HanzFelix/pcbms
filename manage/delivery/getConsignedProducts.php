@@ -12,6 +12,7 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         echo '<tr class="bg-accent ' . ($i % 2 == 0 ? 'bg-opacity-10' : 'bg-opacity-25') . '">
             <td class="px-4 py-2">' . $row["product-name"] . ' (x' . $row["quantity"] . ') </td>
+            <td class="px-4 py-2">' . $row["barcode"] . '</td>
             <td class="px-4 py-2">' . $row["particulars"] . '</td>
             <td class="px-4 py-2">' . $row["exp-date"] . '</td>
             <td class="px-4 py-2">Php ' . $row["unit-price"] . '</td>
