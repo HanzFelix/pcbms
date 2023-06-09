@@ -228,7 +228,7 @@ include "../../components/navigationBar.php"
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Update the search results container
                 var consigned_product = JSON.parse(xhr.responseText);
-                $("#testh1").text(consigned_product.prod_id);
+                $("#testh1").text(consigned_product.prod_name);
                 $('#save-consigned-product').val(consigned_product.item_id);
                 $('#delete-consigned-product').val(consigned_product.item_id);
                 $('#product').val(consigned_product.prod_id);

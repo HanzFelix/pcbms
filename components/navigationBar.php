@@ -8,7 +8,11 @@ $sessionuser = $_SESSION["username"] . " - " . $_SESSION["role"];
         <div class="container mx-auto flex justify-between text-white">
             <h1 class="font-black text-xl">Store Management</h1>
             <ul class="flex gap-4">
-                <li>Home</li>
+                <li>
+                    <a href="/manage/">
+                        Home
+                    </a>
+                </li>
                 <li>
                     <button id="dropdownHoverButton" data-dropdown-toggle="dropdownReceive" data-dropdown-trigger="hover" class="text-white text-center inline-flex items-center" type="button">
                         Receive Delivery

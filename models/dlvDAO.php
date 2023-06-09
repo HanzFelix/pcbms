@@ -55,7 +55,7 @@ class DlvDAO extends ConnectionDAO
 
     function getConsignedProduct($cp_id)
     {
-        $query = "SELECT * FROM `consigned_product` cp WHERE cp.`item_id` = '$cp_id'";
+        $query = "SELECT * FROM `consigned_product` cp LEFT JOIN `product` p ON  p.`prod_id` = cp.`prod_id` WHERE cp.`item_id` = '$cp_id'";
         try {
             $this->openConnection();
 
