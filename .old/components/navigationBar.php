@@ -65,7 +65,7 @@ $sessionuser = $_SESSION["username"] . " - " . $_SESSION["role"];
                     </div>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="../login/logout.php">Log out</a>
+                    <a class="dropdown-item" href="/login/logout.php">Log out</a>
                 </li>
             </ul>
         </div>

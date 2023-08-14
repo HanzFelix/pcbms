@@ -3,7 +3,6 @@ include "../../models/connectionDAO.php";
 
 class DlvDAO extends ConnectionDAO
 {
-    // returns either the first user found or false
     function getConsignedDetailsList($company)
     {
         $query = "SELECT cd.`cd_id` as `cd_id`, s.`company` as `company`, cd.`date_delivered` as `date` FROM `consigned_details` cd INNER JOIN `supplier` s ON s.supp_id = cd.supp_id WHERE s.`company` LIKE '%$company%'";
