@@ -13,6 +13,21 @@ class SupplierController
         echo json_encode($supplier);
     }
 
+    public function getSupplierOptions()
+    {
+
+        $suppmodel = new SupplierModel();
+
+        $suppliers = $suppmodel->getSupplierList();
+        if (mysqli_num_rows($suppliers) > 0) {
+            $i = 0;
+            while ($row = mysqli_fetch_assoc($suppliers)) {
+                echo '<option value=' . $row["supp_id"] . '>' . $row["company"] . ' </option>';
+                $i++;
+            }
+        }
+    }
+
     public function searchSupplier()
     {
         $suppmodel = new SupplierModel();

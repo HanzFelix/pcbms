@@ -20,43 +20,71 @@ ob_start();
 <!--Main-->
 <main class="container mx-auto bg-shade">
     <h2 class="text-center text-3xl p-4 font-bold">Consigned Detail CRUD</h2>
-    <div class="flex gap-4 px-4 items-start">
-        <!--section class="flex flex-col w-3/12 gap-2">
-            <form class="flex" action="#" id="search-form">
-                <input class="w-full" type="text" name="search-input" id="search-input" placeholder="Type few letters here" />
-                <button class="bg-primary text-white py-2 px-4 rounded-r-md" type="submit" id="search-button">GO</button>
-            </form>
-            <div multiple id="search-results" class="min-h-[12rem] flex flex-col items-stretch">
-
-            </div>
-            <div class="flex items-center justify-end gap-2">
-                <button class="bg-accent text-white py-2 px-4 rounded-md" id="new-button">NEW</button>
-            </div>
-        </section-->
-        <div class="w-full overflow-x-auto">
-            <table class="text-left rounded-md overflow-hidden w-full">
-                <thead class="bg-accent bg-opacity-75 text-white border-primary sticky divide-x divide-white">
-                    <?php
-                    foreach ($consignedDetailsHeaderLabels as $label) {
-                        echo "<th class='px-4 py-2'>$label</th>";
-                    }
-                    ?>
-                </thead>
-                <tbody id="cdlisttbody">
-                </tbody>
-            </table>
-        </div>
+    <div class="flex items-center justify-end gap-2 my-2">
+        <button onclick="newConsignedDetails()" class="bg-accent text-white py-2 px-4 rounded-md" id="new-button">NEW</button>
+    </div>
+    <div class="w-full overflow-x-auto">
+        <table class="text-left rounded-md overflow-hidden w-full">
+            <thead class="bg-accent bg-opacity-75 text-white border-primary sticky divide-x divide-white">
+                <?php
+                foreach ($consignedDetailsHeaderLabels as $label) {
+                    echo "<th class='px-4 py-2'>$label</th>";
+                }
+                ?>
+            </thead>
+            <tbody id="cdlisttbody">
+            </tbody>
+        </table>
     </div>
     <?= $error ?>
 </main>
-<!--ConsignedDetails-->
+<!--ConsignedDetailsForm-->
+<dialog id="consignedDetailsFormDialog" class="backdrop:backdrop-brightness-50 bg-secondary border-t-4 border-primary p-4">
+    <form class="flex flex-col gap-4" action="#" id="cd-form">
+        <input name="cd-id" id="cd-id" hidden>
+        <header class="flex items-start justify-between">
+            <h1 class="text-2xl font-bold" id="testh1">Consigned Details</h1>
+            <button type="button" onclick="showDialog('consignedDetailsFormDialog',false)" class="ml-auto inline-flex items-center rounded-lg p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-orange-600 transition-colors">
+                <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+        </header>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Supplier</p>
+
+            <select title="supplier" name="supplier" class="border border-primary w-full disabled:bg-secondary py-2 px-2" required id="supplier-options">
+            </select>
+            <!--input name="supplier" id="supplier-input" type="text" class="border border-primary w-full disabled:bg-secondary" /-->
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Date Delivered</p>
+            <input name="date-delivered" id="date-delivered-input" type="date" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <div class="flex items-center gap-4">
+            <p class="w-40 text-right">Received by:</p>
+            <input name="received-by" id="received-by-input" type="text" class="border border-primary w-full disabled:bg-secondary" />
+        </div>
+        <footer class="flex justify-end gap-2">
+            <button id="cd-create" class="bg-primary text-white py-2 px-4 rounded-md" value="create">Create</button>
+            <button id="cd-update" class="bg-primary text-white py-2 px-4 rounded-md" value="update">Update</button>
+            <button id="cd-delete" class="bg-accent text-white py-2 px-4 rounded-md" value="delete">Delete</button>
+            <button id="cd-cancel" type="button" onclick="showDialog('consignedDetailsFormDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Cancel</button>
+        </footer>
+    </form>
+</dialog>
+<!--ConsignedDetailsProducts-->
 <dialog id="consignedDetailsDialog" class="backdrop:backdrop-brightness-50  bg-secondary border-t-4 border-primary p-4">
     <div class="flex justify-between items-end mb-2">
         <div>
             <p>Supplier: <span id="cd-supplier" class="font-semibold">SupplierName</span> </p>
             <p>Received by: <span id="cd-username" class="font-semibold">UserName</span> </p>
         </div>
-        <p>Date Delivered: <span id="cd-date" class="font-semibold">20/20/20XX</span></p>
+        <div>
+            <p>Actions: <span><button class="bg-primary text-white px-3 rounded-full py-1 text-xs" type="button" onclick="showDialog('consignedDetailsFormDialog')">EDIT CONSIGNED DETAILS</button></span></p>
+            <p>Date Delivered: <span id="cd-date" class="font-semibold">20/20/20XX</span></p>
+        </div>
     </div>
     <div class="overflow-x-auto">
         <table class="text-left rounded-md overflow-hidden w-full mb-2">
@@ -75,25 +103,29 @@ ob_start();
     </div>
 
     <footer class="flex justify-end gap-2">
-        <button id="close-cd-modal" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Close</button>
+        <button id="cp-new" onclick="newConsignedProduct()" class="bg-primary text-white py-2 px-4 rounded-md" value="0">Add Consigned Product</button>
+        <button id="close-cd-modal" onclick="showDialog('consignedDetailsDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Close</button>
     </footer>
 </dialog>
 <!--ConsignedProduct-->
 <dialog class="backdrop:backdrop-brightness-50 rounded-xl bg-secondary border-t-4 border-primary p-4" id="consignedProductDialog">
-    <form class="flex flex-col gap-4" action="#" id="cd-form">
+    <form class="flex flex-col gap-4" action="#" id="cp-form">
+        <input name="cp-id" id="cp-id" hidden>
         <header class="flex items-start justify-between">
-            <h1 class="text-2xl font-bold" id="testh1">a</h1>
-            <button type="button" id="close-cp-modal" class="ml-auto inline-flex items-center rounded-lg p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-orange-600 transition-colors">
+            <h1 class="text-2xl font-bold" id="testh1">Consigned Product</h1>
+            <button type="button" onclick="showDialog('consignedProductDialog',false)" id="close-cp-modal" class="ml-auto inline-flex items-center rounded-lg p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-orange-600 transition-colors">
                 <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
         </header>
-        <!--div class="flex items-center gap-4">
+        <div class="flex items-center gap-4">
             <p class="w-40 text-right">Product</p>
-            <input name="product" id="product" type="text" class="border border-primary w-full disabled:bg-secondary" />
-        </div-->
+
+            <select title="product" name="product" class="border border-primary w-full disabled:bg-secondary py-2 px-2" required id="product-options">
+            </select>
+        </div>
         <div class="flex items-center gap-4">
             <p class="w-40 text-right">Barcode</p>
             <input name="barcode" id="barcode" type="text" class="border border-primary w-full disabled:bg-secondary" />
@@ -123,12 +155,21 @@ ob_start();
             <input name="amount" id="amount" type="text" class="border border-primary w-full disabled:bg-secondary" />
         </div>
         <footer class="flex justify-end gap-2">
-            <button id="cp-save" class="bg-primary text-white py-2 px-4 rounded-md" value="0">Save</button>
-            <button id="cp-delete" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Delete</button>
+            <button id="cp-create" class="bg-primary text-white py-2 px-4 rounded-md" value="create">Create</button>
+            <button id="cp-update" class="bg-primary text-white py-2 px-4 rounded-md" value="update">Update</button>
+            <button id="cp-delete" class="bg-accent text-white py-2 px-4 rounded-md" value="delete">Delete</button>
         </footer>
     </form>
 </dialog>
 <script>
+    function showDialog(dialogId, bool = true) {
+        if (bool) {
+            document.getElementById(dialogId).showModal();
+        } else {
+            document.getElementById(dialogId).close();
+        }
+    }
+
     function getConsignedDetailsList() {
         $.ajax({
             url: '/?action=getConsignedDetailsList',
@@ -165,10 +206,15 @@ ob_start();
                 id: query
             },
             success: function(consigned_details) {
-                $('#id').val(consigned_details.cd_id);
+                //$('#id').val(consigned_details.cd_id);
+                $('#cd-id').val(consigned_details.cd_id);
                 $('#cd-supplier').text(consigned_details.company);
                 $('#cd-username').text(consigned_details.username);
                 $('#cd-date').text(consigned_details.date);
+                $('#supplier-options').val(consigned_details.supp_id);
+                $('#received-by-input').val(consigned_details.userid);
+                $('#date-delivered-input').val(consigned_details.date);
+                setCDCrudMode("update");
             },
             error: function(xhr, status, error) {
                 // Handle errors if necessary
@@ -196,12 +242,72 @@ ob_start();
                     }
                     var cp_id = $(e.target).val();
                     getConsignedProduct(cp_id);
-                    document.getElementById("consignedProductDialog").showModal();
+                    showDialog("consignedProductDialog")
                 });
             },
             error: function(xhr, status, error) {
                 // Handle errors, if any
                 console.log(error);
+            }
+        });
+    }
+
+    function newConsignedProduct() {
+        showDialog("consignedProductDialog");
+        getProductOptions(function() {
+            $("#cp-id").val("");
+            $('#product-options').val("");
+            $('#barcode').val("");
+            $('#particulars').val("");
+            $('#expiry-date').val("");
+            $('#unit-price').val("");
+            $('#selling-price').val("");
+            $('#quantity').val("");
+            $('#amount').val("");
+        });
+        setCPCrudMode("create");
+    }
+
+    function newConsignedDetails() {
+        showDialog("consignedDetailsFormDialog");
+        getSupplierOptions(function() {
+            $('#supplier-options').val("");
+            $('#date-delivered-input').val("");
+            $('#received-by-input').val("");
+        });
+        setCDCrudMode("create");
+    }
+
+    function getProductOptions(callback) {
+        $.ajax({
+            url: '/?action=getProductOptions',
+            method: 'GET',
+            success: function(response) {
+                $('#product-options').html(response);
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors if necessary
+                console.error(error);
+            }
+        });
+    }
+
+    function getSupplierOptions(callback) {
+        $.ajax({
+            url: '/?action=getSupplierOptions',
+            method: 'GET',
+            success: function(response) {
+                $('#supplier-options').html(response);
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors if necessary
+                console.error(error);
             }
         });
     }
@@ -215,41 +321,54 @@ ob_start();
                 id: query
             },
             success: function(consigned_product) {
-                $("#testh1").text(consigned_product.prod_name);
-                $('#cp-save').val(consigned_product.item_id);
-                $('#cp-delete').val(consigned_product.item_id);
-                $('#product').val(consigned_product.prod_id);
-                $('#barcode').val(consigned_product.barcode);
-                $('#particulars').val(consigned_product.particulars);
-                $('#expiry-date').val(consigned_product.expiry_date);
-                $('#unit-price').val(consigned_product.unit_price);
-                $('#selling-price').val(consigned_product.selling_price);
-                $('#quantity').val(consigned_product.quantity);
-                $('#amount').val(consigned_product.amount);
-                setCrudMode("update");
+                getProductOptions(function() {
+                    $("#cp-id").val(consigned_product.item_id);
+                    $('#product-options').val(consigned_product.prod_id);
+                    $('#barcode').val(consigned_product.barcode);
+                    $('#particulars').val(consigned_product.particulars);
+                    $('#expiry-date').val(consigned_product.expiry_date);
+                    $('#unit-price').val(consigned_product.unit_price);
+                    $('#selling-price').val(consigned_product.selling_price);
+                    $('#quantity').val(consigned_product.quantity);
+                    $('#amount').val(consigned_product.amount);
+                    setCPCrudMode("update");
+                });
             }
         });
     }
 
-    function setCrudMode(state) {
-        var delbtn = $('#delete-button');
-        var savbtn = $('#save-button');
-        var crtbtn = $('#create-button');
+    function setCPCrudMode(state = "") {
+        var delbtn = $('#cp-delete');
+        var savbtn = $('#cp-update');
+        var crtbtn = $('#cp-create');
         switch (state) {
             case "update":
                 delbtn.show();
                 savbtn.show();
                 crtbtn.hide();
                 break;
-            case "create":
+            default:
                 delbtn.hide();
                 savbtn.hide();
                 crtbtn.show();
                 break;
+        }
+    }
+
+    function setCDCrudMode(state = "") {
+        var delbtn = $('#cd-delete');
+        var savbtn = $('#cd-update');
+        var crtbtn = $('#cd-create');
+        switch (state) {
+            case "update":
+                delbtn.show();
+                savbtn.show();
+                crtbtn.hide();
+                break;
             default:
                 delbtn.hide();
                 savbtn.hide();
-                crtbtn.hide();
+                crtbtn.show();
                 break;
         }
     }
@@ -271,6 +390,66 @@ ob_start();
 
 
     $(document).ready(function() {
+        $('#cp-form').submit(function(event) {
+            event.preventDefault();
+
+            // Get the form data
+            var formData = $(this).serialize();
+            formData += "&cd-id=" + $('#cd-id').val();
+
+            // Get the clicked button value
+            switch ($(document.activeElement).val()) {
+                case "create":
+                    $.ajax({
+                        type: 'POST',
+                        url: '/?action=createConsignedProduct',
+                        data: formData,
+                        success: function(response) {
+                            getConsignedProducts($('#cd-id').val());
+                            showDialog("consignedProductDialog", false);
+                            setCPCrudMode("");
+                        }
+                    });
+                    break;
+                case "update":
+                    console.log(formData);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/?action=updateConsignedProduct',
+                        data: formData,
+                        success: function(response) {
+                            getConsignedProducts($('#cd-id').val());
+                            showDialog("consignedProductDialog", false);
+                            setCPCrudMode("");
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors if necessary
+                            console.error(error);
+                        }
+                    });
+                    break;
+                case "delete":
+                    $.ajax({
+                        type: 'POST',
+                        url: '/?action=deleteConsignedProduct',
+                        data: formData,
+                        success: function(response) {
+                            getConsignedProducts($('#cd-id').val());
+                            showDialog("consignedProductDialog", false);
+                            setCPCrudMode("");
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors if necessary
+                            console.error(error);
+                        }
+                    });
+                    break;
+                default:
+                    console.log(formData)
+                    break;
+            }
+        });
+
         $('#cd-form').submit(function(event) {
             event.preventDefault();
 
@@ -282,36 +461,49 @@ ob_start();
                 case "create":
                     $.ajax({
                         type: 'POST',
-                        url: '/?action=createSupplier',
+                        url: '/?action=createConsignedDetails',
                         data: formData,
                         success: function(response) {
-                            clearText(true);
-                            setCrudMode("");
-                            $('#search-form').submit();
+                            setCDCrudMode();
+                            showDialog('consignedDetailsFormDialog', false);
+                            getConsignedDetailsList();
                         }
                     });
                     break;
                 case "update":
                     $.ajax({
                         type: 'POST',
-                        url: '/?action=updateSupplier',
+                        url: '/?action=updateConsignedDetails',
                         data: formData,
                         success: function(response) {
-                            clearText(true);
-                            setCrudMode("");
-                            $('#search-form').submit();
+                            setCDCrudMode();
+                            showDialog('consignedDetailsFormDialog', false);
+                            getConsignedDetails($('#cd-id').val());
+                            getConsignedDetailsList();
                         }
                     });
                     break;
                 case "delete":
                     $.ajax({
                         type: 'POST',
-                        url: '/?action=deleteSupplier',
+                        url: '/?action=deleteConsignedDetails',
                         data: formData,
                         success: function(response) {
-                            clearText(true);
-                            setCrudMode("");
-                            $('#search-form').submit();
+                            setCDCrudMode();
+                            showDialog('consignedDetailsFormDialog', false);
+                            showDialog('consignedDetailsDialog', false);
+                            getConsignedDetailsList();
+                        }
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        url: '/?action=deleteConsignedProducts',
+                        data: formData,
+                        success: function(response) {
+                            setCDCrudMode();
+                            showDialog('consignedDetailsFormDialog', false);
+                            showDialog('consignedDetailsDialog', false);
+                            getConsignedDetailsList();
                         }
                     });
                     break;
@@ -320,9 +512,8 @@ ob_start();
             }
         });
 
-
         // Add event listener to the search button
-        $('#search-form').submit(function(event) {
+        /*$('#search-form').submit(function(event) {
             event.preventDefault();
 
             var formData = $(this).serialize();
@@ -350,24 +541,11 @@ ob_start();
                     console.log(error);
                 }
             });
-        });
+        });*/
 
-        $('#new-button').on('click', function() {
-            clearText(false);
-            setCrudMode("create");
-        });
-
-        $('#close-cp-modal').on('click', function() {
-            document.getElementById("consignedProductDialog").close();
-        });
-
-        $('#close-cd-modal').on('click', function() {
-            document.getElementById("consignedDetailsDialog").close();
-        });
-
-        // show all results on ready
-        //$('#search-form').submit();
         getConsignedDetailsList();
+        getSupplierOptions();
+        setCDCrudMode();
     });
 </script>
 <?php

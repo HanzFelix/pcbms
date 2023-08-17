@@ -108,6 +108,7 @@ requireLogin(true);
         </section>
     </header>
     <?php echo $content; ?>
+    <?php echo $error; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
 

@@ -1,91 +1,45 @@
 <?php
 
+// Defined routes and their corresponding actions
+$routes = [
+    'searchSupplier' => 'SupplierController@searchSupplier',
+    'getSupplier' => 'SupplierController@getSupplier',
+    'getSupplierOptions' => 'SupplierController@getSupplierOptions',
+    'createSupplier' => 'SupplierController@createSupplier',
+    'updateSupplier' => 'SupplierController@updateSupplier',
+    'deleteSupplier' => 'SupplierController@deleteSupplier',
+
+    'searchProduct' => 'ProductController@searchProduct',
+    'getProduct' => 'ProductController@getProduct',
+    'getProductList' => 'ProductController@getProductList',
+    'getProductOptions' => 'ProductController@getProductOptions',
+    'createProduct' => 'ProductController@createProduct',
+    'updateProduct' => 'ProductController@updateProduct',
+    'deleteProduct' => 'ProductController@deleteProduct',
+
+    'searchConsignedDetails' => 'ConsignedProductController@searchConsignedDetails',
+    'getConsignedDetails' => 'ConsignedProductController@getConsignedDetails',
+    'getConsignedDetailsList' => 'ConsignedProductController@getConsignedDetailsList',
+    'createConsignedDetails' => 'ConsignedProductController@createConsignedDetails',
+    'updateConsignedDetails' => 'ConsignedProductController@updateConsignedDetails',
+    'deleteConsignedDetails' => 'ConsignedProductController@deleteConsignedDetails',
+
+    'getConsignedProductList' => 'ConsignedProductController@getConsignedProductList',
+    'getConsignedProduct' => 'ConsignedProductController@getConsignedProduct',
+    'updateConsignedProduct' => 'ConsignedProductController@updateConsignedProduct',
+    'createConsignedProduct' => 'ConsignedProductController@createConsignedProduct',
+    'deleteConsignedProduct' => 'ConsignedProductController@deleteConsignedProduct',
+    'deleteConsignedProducts' => 'ConsignedProductController@deleteConsignedProducts',
+];
+
 // xhttp handling
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    // Construct the full path to your PHP file
     $action = $_GET['action'];
-    // Load your application's configurations, models, and other components if needed
-    if ($action == 'searchSupplier') {
-        include 'app/Controllers/SupplierController.php';
-        $suppController = new SupplierController();
-        $suppController->searchSupplier();
-        exit;
-        // Perform the necessary action using the constructed path
-    } elseif ($action == 'getSupplier') {
-        include 'app/Controllers/SupplierController.php';
-        $suppController = new SupplierController();
-        $suppController->getSupplier();
-        exit;
-    } elseif ($action == 'createSupplier') {
-        include 'app/Controllers/SupplierController.php';
-        $suppController = new SupplierController();
-        $suppController->getSupplier();
-        exit;
-    } elseif ($action == 'updateSupplier') {
-        include 'app/Controllers/SupplierController.php';
-        $suppController = new SupplierController();
-        $suppController->updateSupplier();
-        exit;
-    } elseif ($action == 'deleteSupplier') {
-        include 'app/Controllers/SupplierController.php';
-        $suppController = new SupplierController();
-        $suppController->deleteSupplier();
-        exit;
-    } elseif ($action == 'searchProduct') {
-        include 'app/Controllers/ProductController.php';
-        $prodController = new ProductController();
-        $prodController->searchProduct();
-        exit;
-        // Perform the necessary action using the constructed path
-    } elseif ($action == 'getProduct') {
-        include 'app/Controllers/ProductController.php';
-        $prodController = new ProductController();
-        $prodController->getProduct();
-        exit;
-    } elseif ($action == 'getProductList') {
-        include 'app/Controllers/ProductController.php';
-        $prodController = new ProductController();
-        $prodController->getProductList();
-        exit;
-    } elseif ($action == 'createProduct') {
-        include 'app/Controllers/ProductController.php';
-        $prodController = new ProductController();
-        $prodController->createProduct();
-        exit;
-    } elseif ($action == 'updateProduct') {
-        include 'app/Controllers/ProductController.php';
-        $prodController = new ProductController();
-        $prodController->updateProduct();
-        exit;
-    } elseif ($action == 'deleteProduct') {
-        include 'app/Controllers/ProductController.php';
-        $prodController = new ProductController();
-        $prodController->deleteProduct();
-        exit;
-    } elseif ($action == 'searchConsignedDetails') {
-        include 'app/Controllers/ConsignedProductController.php';
-        $cpController = new ConsignedProductController();
-        $cpController->searchConsignedDetails();
-        exit;
-    } elseif ($action == 'getConsignedDetails') {
-        include 'app/Controllers/ConsignedProductController.php';
-        $cpController = new ConsignedProductController();
-        $cpController->getConsignedDetails();
-        exit;
-    } elseif ($action == 'getConsignedDetailsList') {
-        include 'app/Controllers/ConsignedProductController.php';
-        $cpController = new ConsignedProductController();
-        $cpController->getConsignedDetailsList();
-        exit;
-    } elseif ($action == 'getConsignedProductList') {
-        include 'app/Controllers/ConsignedProductController.php';
-        $cpController = new ConsignedProductController();
-        $cpController->getConsignedProductList();
-        exit;
-    } elseif ($action == 'getConsignedProduct') {
-        include 'app/Controllers/ConsignedProductController.php';
-        $cpController = new ConsignedProductController();
-        $cpController->getConsignedProduct();
+    if (isset($routes[$action])) {
+        list($controllerName, $method) = explode('@', $routes[$action]);
+        include 'app/Controllers/' . $controllerName . '.php';
+        $controller = new $controllerName();
+        $controller->$method();
         exit;
     }
 }
@@ -96,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         include 'app/Controllers/UserController.php';
         $userController = new UserController();
         $userController->login();
-        exit; // Prevent further execution of this script
+        exit;
     }
 }
 

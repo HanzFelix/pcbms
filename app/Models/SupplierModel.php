@@ -19,6 +19,21 @@ class SupplierModel extends ConnectionModel
             return false;
         }
     }
+    function getSupplierList()
+    {
+        $query = "SELECT * FROM supplier";
+        try {
+            $this->openConnection();
+
+            $result = mysqli_query($this->conn, $query);
+
+            return $result;
+        } catch (Exception $e) {
+            $_SESSION["error_message"] = $e;
+            $e->getMessage();
+            return false;
+        }
+    }
 
     function getSupplier($supp_id)
     {

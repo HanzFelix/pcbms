@@ -28,6 +28,19 @@ class ProductController
             echo '<tr class="bg-accent bg-opacity-10"><td class="px-4 py-2">No results found</td></tr>';
         }
     }
+    public function getProductOptions()
+    {
+        $prodmodel = new ProductModel();
+
+        $products = $prodmodel->getProductList();
+        if (mysqli_num_rows($products) > 0) {
+            $i = 0;
+            while ($row = mysqli_fetch_assoc($products)) {
+                echo '<option value=' . $row["prod_id"] . '>' . $row["prod_name"] . ' </option>';
+                $i++;
+            }
+        }
+    }
     public function getProduct()
     {
         $prodmodel = new ProductModel();

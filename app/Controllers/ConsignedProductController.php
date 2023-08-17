@@ -90,4 +90,60 @@ class ConsignedProductController
             echo '<tr class="bg-accent bg-opacity-10"><td class="px-4 py-2" colspan="7">No results found</td></tr>';
         }
     }
+
+    public function createConsignedProduct()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedProductModel.php";
+        $conproduct = new ConsignedProductModel();
+        $conproduct->createConsignedProduct($_POST['cd-id'], $_POST['product'], $_POST['barcode'], $_POST['particulars'], $_POST['expiry-date'], $_POST['unit-price'], $_POST['selling-price'], $_POST['quantity'], $_POST['amount']);
+        echo "done";
+    }
+
+    public function updateConsignedProduct()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedProductModel.php";
+        $conproduct = new ConsignedProductModel();
+        $conproduct->updateConsignedProduct($_POST['cp-id'], $_POST['product'], $_POST['barcode'], $_POST['particulars'], $_POST['expiry-date'], $_POST['unit-price'], $_POST['selling-price'], $_POST['quantity'], $_POST['amount']);
+        echo "done";
+    }
+
+    public function deleteConsignedProduct()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedProductModel.php";
+        $conproduct = new ConsignedProductModel();
+        $conproduct->deleteConsignedProduct($_POST['cp-id']);
+        echo "done";
+        //cp-id=3&product=3&barcode=1234568&particulars=25.00&expiry-date=2023-08-16&unit-price=21.00&selling-price=26.00&quantity=9&amount=189.00
+    }
+
+    public function createConsignedDetails()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedDetailsModel.php";
+        $condetails = new ConsignedDetailsModel();
+        $condetails->createConsignedDetails($_POST['supplier'], $_POST['date-delivered'], $_POST['received-by']);
+        echo "done";
+    }
+
+    public function updateConsignedDetails()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedProductModel.php";
+        $condetails = new ConsignedDetailsModel();
+        $condetails->updateConsignedDetails($_POST['cd-id'], $_POST['supplier'], $_POST['date-delivered'], $_POST['received-by']);
+        echo "done";
+    }
+
+    public function deleteConsignedDetails()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedProductModel.php";
+        $conproduct = new ConsignedProductModel();
+        $conproduct->deleteConsignedProducts($_POST['cd-id']);
+        echo "done";
+    }
+
+    public function deleteConsignedProducts()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedDetailsModel.php";
+        $condetails = new ConsignedDetailsModel();
+        $condetails->deleteConsignedDetails($_POST['cd-id']);
+    }
 }
