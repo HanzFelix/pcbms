@@ -95,7 +95,7 @@ requireLogin(true);
                         </div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="/login/logout.php">Log out</a>
+                        <a class="dropdown-item" href="/logout">Log out</a>
                     </li>
                 </ul>
             </div>
