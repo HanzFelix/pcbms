@@ -10,7 +10,7 @@ requireLogin(true);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?php echo $title; ?> - VSU PCBMS</title>
+    <title><?php echo $title; ?> - VSU PCBMS (Manager)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
@@ -102,8 +102,8 @@ requireLogin(true);
         </nav>
         <section class=" px-4 bg-accent bg-opacity-50 py-2 text-white font-semibold">
             <div class="container mx-auto justify-between flex">
-                <h2><?= $_SESSION["username"] . " - " . $_SESSION["role"] ?></h2>
-                <h2>DateTime</h2>
+                <h2><?= $_SESSION["empname"] . " - " . $_SESSION["role"] ?></h2>
+                <h2><?= date('m/d/Y H:i A') ?></h2>
             </div>
         </section>
     </header>

@@ -16,6 +16,8 @@ class UserController
         if ($result) {
             $_SESSION["userid"] = $result["userid"];
             $_SESSION["username"] = $username;
+            $_SESSION["empname"] = $result["lname"] . ", " . $result["fname"] . " " . $result["mname"];
+            $_SESSION["empid"] = $result["empid"];
             $_SESSION["role"] = $role;
 
             switch ($role) {
