@@ -20,7 +20,7 @@ $state = $dtrController->hasLoggedInToday();
 ob_start();
 ?>
 <!--Main-->
-<main class="p-4">
+<main class="p-4 container mx-auto">
     <h1 class="text-center text-3xl font-bold">DTR</h1>
     <section>
         <form action='/processDTR' method='post' class="flex justify-between items-end mb-2">
