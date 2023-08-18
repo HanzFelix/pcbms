@@ -39,7 +39,7 @@ requireLogin(true);
                 <h1 class="font-black text-xl">Personnel Overview</h1>
                 <ul class="flex gap-4">
                     <li>
-                        <a href="/manage">
+                        <a href="/personnel">
                             Home
                         </a>
                     </li>
