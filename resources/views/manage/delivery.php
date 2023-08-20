@@ -322,7 +322,7 @@ ob_start();
             },
             success: function(consigned_product) {
                 getProductOptions(function() {
-                    $("#cp-id").val(consigned_product.item_id);
+                    $("#cp-id").val(consigned_product.cp_id);
                     $('#product-options').val(consigned_product.prod_id);
                     $('#barcode').val(consigned_product.barcode);
                     $('#particulars').val(consigned_product.particulars);

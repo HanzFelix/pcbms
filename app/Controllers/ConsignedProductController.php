@@ -81,7 +81,7 @@ class ConsignedProductController
                     <td class="px-4 py-2">Php ' . $row["unit-price"] . '</td>
                     <td class="px-4 py-2">Php ' . $row["selling-price"] . '</td>
                     <td class="px-4 py-2">
-                        <button class="bg-primary text-white px-3 rounded-full py-1 text-xs" value="' . $row["item-id"] . '">EDIT</button>
+                        <button class="bg-primary text-white px-3 rounded-full py-1 text-xs" value="' . $row["cp-id"] . '">EDIT</button>
                     </td>
                 </tr>';
                 $i++;
