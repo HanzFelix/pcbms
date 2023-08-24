@@ -33,7 +33,7 @@ ob_start();
         
     </div-->
     <div class="flex items-center justify-end gap-2 my-2">
-        <button class="bg-accent text-white py-2 px-4 rounded-md" id="new-button">NEW</button>
+        <button class="bg-primary text-white py-2 px-4 rounded-md" id="new-button">NEW PRODUCT</button>
     </div>
     <div class="w-full overflow-x-auto">
         <table class="text-left rounded-md overflow-hidden w-full">
