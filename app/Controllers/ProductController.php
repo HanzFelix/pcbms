@@ -33,12 +33,8 @@ class ProductController
         $prodmodel = new ProductModel();
 
         $products = $prodmodel->getProductList();
-        if (mysqli_num_rows($products) > 0) {
-            $i = 0;
-            while ($row = mysqli_fetch_assoc($products)) {
-                echo '<option value=' . $row["prod_id"] . '>' . $row["prod_name"] . ' </option>';
-                $i++;
-            }
+        while ($row = mysqli_fetch_assoc($products)) {
+            echo '<option value=' . $row["prod_id"] . '>' . $row["prod_name"] . ' (' . $row["unit"] . ') </option>';
         }
     }
     public function getProduct()
