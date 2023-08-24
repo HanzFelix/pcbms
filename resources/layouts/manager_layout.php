@@ -82,12 +82,12 @@ requireLogin(true);
                         <div id="dropdownProduct" class="z-10 hidden bg-shade divide-y divide-gray-100 rounded-lg shadow w-44">
                             <ul class="py-2 text-sm text-txt " aria-labelledby="dropdownHoverButton">
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-accent hover:text-white">
+                                    <a href="/manage/order" class="block px-4 py-2 hover:bg-accent hover:text-white">
                                         Manage Purchase Order
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-accent hover:text-white">
+                                    <a href="/manage/expired" class="block px-4 py-2 hover:bg-accent hover:text-white">
                                         Manage Expired Products
                                     </a>
                                 </li>

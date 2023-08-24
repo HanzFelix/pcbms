@@ -11,8 +11,8 @@ $urlList = [
     ['url' => '/manage/supplier', 'title' => 'Manage Suppliers'],
     ['url' => '/manage/product', 'title' => 'Manage Products'],
     ['url' => '/manage/delivery', 'title' => 'Product Delivery'],
-    ['url' => '#', 'title' => 'Manage Purchase Order'],
-    ['url' => '#', 'title' => 'Manage Expired Products']
+    ['url' => '/manage/order', 'title' => 'Manage Purchase Order'],
+    ['url' => '/manage/expired', 'title' => 'Manage Expired Products']
 ];
 
 ob_start();
