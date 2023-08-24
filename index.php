@@ -30,6 +30,19 @@ $routes = [
     'createConsignedProduct' => 'ConsignedProductController@createConsignedProduct',
     'deleteConsignedProduct' => 'ConsignedProductController@deleteConsignedProduct',
     'deleteConsignedProducts' => 'ConsignedProductController@deleteConsignedProducts',
+
+    'getOrderDetailsList' => 'OrderController@getOrderDetailsList',
+    'getOrderDetails' => 'OrderController@getOrderDetails',
+    'createOrderDetails' => 'OrderController@createOrderDetails',
+    'updateOrderDetails' => 'OrderController@updateOrderDetails',
+    'deleteOrderDetails' => 'OrderController@deleteOrderDetails',
+
+    'getOrderProductList' => 'OrderController@getOrderProductList',
+    'getOrderProduct' => 'OrderController@getOrderProduct',
+    'createOrderProduct' => 'OrderController@createOrderProduct',
+    'updateOrderProduct' => 'OrderController@updateOrderProduct',
+    'deleteOrderProduct' => 'OrderController@deleteOrderProduct',
+    'deleteOrderProducts' => 'OrderController@deleteOrderProducts',
 ];
 
 // xhttp handling
@@ -71,6 +84,10 @@ if ($request === '/' || $request === '/login') {
     include 'resources/views/manage/product.php';
 } elseif ($request === '/manage/supplier') {
     include 'resources/views/manage/supplier.php';
+} elseif ($request === '/manage/order') {
+    include 'resources/views/manage/order.php';
+} elseif ($request === '/manage/expired') {
+    include 'resources/views/manage/expired.php';
 } elseif ($request === '/cashier') {
     include 'resources/views/cashier/dashboard.php';
 } elseif ($request === '/personnel') {
