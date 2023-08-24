@@ -3,7 +3,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConnectionModel.php";
 
 class ConsignedDetailsModel extends ConnectionModel
 {
-    function getConsignedDetailsList($company)
+    function getConsignedDetailsListOld($company)
     {
         $query = "SELECT cd.`cd_id` as `cd_id`, s.`company` as `company`, cd.`date_delivered` as `date` FROM `consigned_details` cd INNER JOIN `supplier` s ON s.supp_id = cd.supp_id WHERE s.`company` LIKE '%$company%'";
         try {
@@ -18,7 +18,7 @@ class ConsignedDetailsModel extends ConnectionModel
             return false;
         }
     }
-    function getConsignedDetailsListNew()
+    function getConsignedDetailsList()
     {
         $query = "SELECT cd.`cd_id` as `cd_id`, s.`company` as `company`, cd.`date_delivered` as `date`, u.`username` as `username` FROM `consigned_details` cd INNER JOIN `supplier` s ON s.supp_id = cd.supp_id INNER JOIN `users` u ON u.userid = cd.userid ORDER BY cd.`cd_id` DESC";
         try {
