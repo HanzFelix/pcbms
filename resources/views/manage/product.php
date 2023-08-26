@@ -12,7 +12,7 @@ $productHeaderLabels = [
     "Shelf life (days)",
     "Unit",
     "Appreciation",
-    "Max. Quantity",
+    "Quantity",
     "Action"
 ];
 
@@ -35,7 +35,8 @@ ob_start();
     <div class="flex items-center justify-end gap-2 my-2">
         <button class="bg-primary text-white py-2 px-4 rounded-md" id="new-button">NEW PRODUCT</button>
     </div>
-    <div class="w-full overflow-x-auto">
+    <div class="w-full overflow-x-auto" id="ptable">
+
         <table class="text-left rounded-md overflow-hidden w-full">
             <thead class="bg-accent bg-opacity-75 text-white border-primary sticky divide-x divide-white">
                 <?php
@@ -158,10 +159,10 @@ ob_start();
             method: 'GET',
             success: function(response) {
                 // Update the search results container
-                $('#productlisttbody').html(response);
+                $('#ptable').html(response);
 
                 // Add event listener to container when selecting a specific option
-                $('#productlisttbody').on('click', function(e) {
+                $('#ptable').on('click', function(e) {
                     // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;

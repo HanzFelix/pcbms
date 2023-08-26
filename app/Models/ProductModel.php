@@ -5,7 +5,9 @@ class ProductModel extends ConnectionModel
 {
     function getProductList()
     {
-        $query = "SELECT * FROM product";
+        $query = "SELECT p.*, COALESCE(SUM(cp.quantity), 0) AS total_quantity FROM product p LEFT JOIN
+        consigned_product cp ON p.prod_id = cp.prod_id GROUP BY
+    p.prod_id;";
         try {
             $this->openConnection();
 

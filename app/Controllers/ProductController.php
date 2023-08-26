@@ -8,25 +8,33 @@ class ProductController
     {
         $prodmodel = new ProductModel();
 
-        $products = $prodmodel->getProductList();
-        if (mysqli_num_rows($products) > 0) {
-            $i = 0;
-            while ($row = mysqli_fetch_assoc($products)) {
-                echo '<tr class="bg-accent ' . ($i % 2 == 0 ? 'bg-opacity-10' : 'bg-opacity-25') . '">
-                <td class="px-4 py-2">' . $row["prod_name"] . ' </td>
-                    <td class="px-4 py-2">' . $row["shelf_life"] . ' </td>
-                    <td class="px-4 py-2">' . $row["unit"] . '</td>
-                    <td class="px-4 py-2">' . $row["appreciation"] . '</td>
-                    <td class="px-4 py-2">' . $row["max_quantity"] . '</td>
-                    <td class="px-4 py-2">
-                        <button class="bg-primary text-white px-3 rounded-full py-1 text-xs" value="' . $row["prod_id"] . '">EDIT</button>
-                    </td>
-                </tr>';
-                $i++;
+        $result = $prodmodel->getProductList();
+        $data = [];
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = [
+                    $row["prod_name"],
+                    $row["total_quantity"] . ' / ' . $row["max_quantity"],
+                    $row["unit"],
+                    $row["appreciation"],
+                    $row["shelf_life"],
+                    '<button class="bg-primary text-white px-3 rounded-full py-1 text-xs" value="' . $row["prod_id"] . '">EDIT</button>',
+                ];
             }
         } else {
-            echo '<tr class="bg-accent bg-opacity-10"><td class="px-4 py-2">No results found</td></tr>';
+            $data[] = ['No results found', "", "", "", "", "", ""];
         }
+
+        $headerLabels = [
+            "Product Name",
+            "Quantity",
+            "Unit",
+            "Appreciation",
+            "Shelf life (days)",
+            "Action"
+        ];
+        include $_SERVER['DOCUMENT_ROOT'] . "/resources/partials/table.php";
+        echo generateTable($data, $headerLabels);
     }
     public function getProductOptions()
     {
