@@ -40,7 +40,7 @@ class ConsignedProductController
                 ];
             }
         } else {
-            $data[] = ['No results found'];
+            $data[] = ['No results found', "", "", "", ""];
         }
 
         $headerLabels = ["ID", "Supplier", "Received by", "Date Delivered", "Action"];
@@ -61,12 +61,14 @@ class ConsignedProductController
                     $row["product-name"] . ' (x' . $row["quantity"] . ')',
                     $row["barcode"],
                     $row["particulars"],
-                    $row["exp-date"], $row["unit-price"], $row["selling-price"],
+                    $row["exp-date"],
+                    $row["unit-price"],
+                    $row["selling-price"],
                     '<button class="bg-primary text-white px-3 rounded-full py-1 text-xs" value="' . $row["cp-id"] . '">EDIT</button>',
                 ];
             }
         } else {
-            $data[] = ['No results found'];
+            $data[] = ['No results found', "", "", "", "", "", ""];
         }
 
         $headerLabels = ["Product Name (Qty)", "Barcode", "Particular", "Expiry Date", "Unit Price", "Selling Price", "Action"];
