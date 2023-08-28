@@ -1,5 +1,4 @@
 <?php
-// search.php
 include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ProductModel.php";
 
 class ProductController

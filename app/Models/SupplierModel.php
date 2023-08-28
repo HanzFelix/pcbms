@@ -3,7 +3,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConnectionModel.php";
 
 class SupplierModel extends ConnectionModel
 {
-    // returns either the first user found or false
     function getSuppliers($company)
     {
         $query = "SELECT * FROM supplier WHERE company LIKE '%$company%'";
