@@ -29,4 +29,13 @@ class ConnectionModel
             $e->getMessage();
         }
     }
+
+    public function getLastInsertID()
+    {
+        if ($this->conn !== null) {
+            return mysqli_insert_id($this->conn);
+        } else {
+            return null;
+        }
+    }
 }
