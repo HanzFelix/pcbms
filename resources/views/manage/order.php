@@ -6,15 +6,9 @@ if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
 }
-$orderDetailsHeaderLabels = [
-    "Supplier",
-    "Ordered by",
-    "Order date",
-    "Status",
-    "Action"
-];
 ob_start();
-?><main class="container mx-auto bg-shade">
+?>
+<main class="container mx-auto bg-shade">
     <h2 class="text-center text-3xl p-4 font-bold">ORDER CRUD</h2>
     <div class="flex items-center justify-end gap-2 my-2">
         <button onclick="newOrderDetails()" class="bg-primary text-white py-2 px-4 rounded-md" id="new-button">NEW ORDER</button>
