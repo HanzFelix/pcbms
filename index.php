@@ -43,6 +43,22 @@ $routes = [
     'updateOrderProduct' => 'OrderController@updateOrderProduct',
     'deleteOrderProduct' => 'OrderController@deleteOrderProduct',
     'deleteOrderProducts' => 'OrderController@deleteOrderProducts',
+
+    'getExpiredListBySupplier' => 'ExpiredController@getExpiredListBySupplier',
+    'getExpiredProductListFromSupplier' => 'ExpiredController@getExpiredProductListFromSupplier',
+    'createExpiredDetails' => 'ExpiredController@createExpiredDetails',
+    'createExpiredProduct' => 'ExpiredController@createExpiredProduct',
+
+    'getExpiredDetails' => 'ExpiredController@getExpiredDetails',
+    'getExpiredDetailsList' => 'ExpiredController@getExpiredDetailsList',
+    'updateExpiredDetails' => 'ExpiredController@updateExpiredDetails',
+    'deleteExpiredDetails' => 'ExpiredController@deleteExpiredDetails',
+
+    'getExpiredProductList' => 'ExpiredController@getExpiredProductList',
+    'getExpiredProduct' => 'ExpiredController@getExpiredProduct',
+    'updateExpiredProduct' => 'ExpiredController@updateExpiredProduct',
+    'deleteExpiredProduct' => 'ExpiredController@deleteExpiredProduct',
+    'deleteExpiredProducts' => 'ExpiredController@deleteExpiredProducts',
 ];
 
 // xhttp handling
@@ -88,6 +104,8 @@ if ($request === '/' || $request === '/login') {
     include 'resources/views/manage/order.php';
 } elseif ($request === '/manage/expired') {
     include 'resources/views/manage/expired.php';
+} elseif ($request === '/manage/returned') {
+    include 'resources/views/manage/returned.php';
 } elseif ($request === '/cashier') {
     include 'resources/views/cashier/dashboard.php';
 } elseif ($request === '/personnel') {
