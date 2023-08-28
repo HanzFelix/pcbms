@@ -108,6 +108,7 @@
             <button id="cp-create" class="bg-primary text-white py-2 px-4 rounded-md" value="create">Create</button>
             <button id="cp-update" class="bg-primary text-white py-2 px-4 rounded-md" value="update">Update</button>
             <button id="cp-delete" class="bg-accent text-white py-2 px-4 rounded-md" value="delete">Delete</button>
+            <button id="cp-cancel" type="button" onclick="showDialog('consignedProductDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Cancel</button>
         </footer>
     </form>
 </dialog>

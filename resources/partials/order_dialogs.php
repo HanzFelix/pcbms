@@ -89,6 +89,7 @@
             <button id="op-create" class="bg-primary text-white py-2 px-4 rounded-md" value="create">Create</button>
             <button id="op-update" class="bg-primary text-white py-2 px-4 rounded-md" value="update">Update</button>
             <button id="op-delete" class="bg-accent text-white py-2 px-4 rounded-md" value="delete">Delete</button>
+            <button id="op-cancel" type="button" onclick="showDialog('orderProductDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Cancel</button>
         </footer>
     </form>
 </dialog>
