@@ -4,7 +4,7 @@ function generateTable($data, $headerLabels)
     $html = '<table class="text-left rounded-md overflow-hidden w-full">';
 
     // Generate table header
-    $html .= '<thead class="bg-accent bg-opacity-75 text-white border-primary sticky">';
+    $html .= '<thead class="bg-accent bg-opacity-75 text-white border-primary">';
     $html .= '<tr>';
     foreach ($headerLabels as $label) {
         $html .= '<th class="px-4 py-2">' . htmlspecialchars($label) . '</th>';
