@@ -35,6 +35,7 @@ class ProductController
         include $_SERVER['DOCUMENT_ROOT'] . "/resources/partials/table.php";
         echo generateTable($data, $headerLabels);
     }
+
     public function getProductOptions()
     {
         $prodmodel = new ProductModel();
@@ -44,6 +45,7 @@ class ProductController
             echo '<option value=' . $row["prod_id"] . '>' . $row["prod_name"] . ' (' . $row["unit"] . ') </option>';
         }
     }
+
     public function getProduct()
     {
         $prodmodel = new ProductModel();

@@ -18,7 +18,7 @@ ob_start();
     <?= $error ?>
 </main>
 <!--ExpiredDetailsForm-->
-<dialog id="expiredDetailsFormDialog" class="backdrop:backdrop-brightness-50 bg-secondary border-t-4 border-primary p-4">
+<!--dialog id="expiredDetailsFormDialog" class="backdrop:backdrop-brightness-50 bg-secondary border-t-4 border-primary p-4">
     <form class="flex flex-col gap-4" action="#" id="ed-form">
         <input name="ed-id" id="ed-id" hidden>
         <header class="flex items-start justify-between">
@@ -36,7 +36,7 @@ ob_start();
             <select title="supplier" name="supplier" class="border border-primary w-full disabled:bg-secondary py-2 px-2" required id="supplier-options">
             </select>
             <!--input name="supplier" id="supplier-input" type="text" class="border border-primary w-full disabled:bg-secondary" /-->
-        </div>
+<!--/div>
         <div class="flex items-center gap-4">
             <p class="w-40 text-right">Date Delivered</p>
             <input name="date-returned" id="date-returned-input" type="date" class="border border-primary w-full disabled:bg-secondary" />
@@ -52,7 +52,7 @@ ob_start();
             <button id="ed-cancel" type="button" onclick="showDialog('expiredDetailsFormDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Cancel</button>
         </footer>
     </form>
-</dialog>
+</dialog-->
 <!--ExpiredDetailsProducts-->
 <dialog id="expiredDetailsDialog" class="backdrop:backdrop-brightness-50  bg-secondary border-t-4 border-primary p-4">
     <div class="flex justify-between items-end mb-2 gap-2">
@@ -62,7 +62,7 @@ ob_start();
         </div>
         <div>
             <!--p>Actions: <span><button class="bg-primary text-white px-3 rounded-full py-1 text-xs" type="button" onclick="showDialog('expiredDetailsFormDialog')">EDIT RETURNED DETAILS</button></span></p-->
-            <p>Date Delivered: <span id="ed-date" class="font-semibold">20/20/20XX</span></p>
+            <p>Date Returned: <span id="ed-date" class="font-semibold">20/20/20XX</span></p>
         </div>
     </div>
     <div class="overflow-x-auto w-full" id="eptable">
@@ -74,7 +74,7 @@ ob_start();
     </footer>
 </dialog>
 <!--ExpiredProduct-->
-<dialog class="backdrop:backdrop-brightness-50 rounded-xl bg-secondary border-t-4 border-primary p-4" id="expiredProductDialog">
+<!--dialog class="backdrop:backdrop-brightness-50 rounded-xl bg-secondary border-t-4 border-primary p-4" id="expiredProductDialog">
     <form class="flex flex-col gap-4" action="#" id="ep-form">
         <input name="ep-id" id="ep-id" hidden>
         <header class="flex items-start justify-between">
@@ -130,7 +130,7 @@ ob_start();
             <button id="ed-cancel" type="button" onclick="showDialog('expiredProductDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Cancel</button>
         </footer>
     </form>
-</dialog>
+</dialog-->
 <script>
     function showDialog(dialogId, bool = true) {
         if (bool) {
