@@ -22,6 +22,15 @@ class ConsignedProductController
         echo json_encode($consigned_product);
     }
 
+    public function getConsignedProductWithBarcode()
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedProductModel.php";
+        $conproduct = new ConsignedProductModel();
+
+        $consigned_product = $conproduct->getConsignedProductWithBarcode($_GET['barcode']);
+        echo json_encode($consigned_product);
+    }
+
     public function getConsignedDetailsList()
     {
         include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConsignedDetailsModel.php";
@@ -34,7 +43,7 @@ class ConsignedProductController
                 $data[] = [
                     $row["cd_id"],
                     $row["company"],
-                    $row["username"],
+                    $row["personnel"],
                     $row["date"],
                     '<button class="bg-primary text-white px-3 rounded-full py-1 text-xs" value="' . $row["cd_id"] . '">VIEW</button>',
                 ];

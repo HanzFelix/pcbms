@@ -24,7 +24,8 @@
         </div>
         <div class="flex items-center gap-4">
             <p class="w-40 text-right">Received by:</p>
-            <input name="received-by" id="received-by-input" type="text" class="border border-primary w-full disabled:bg-secondary" />
+            <input name="received-by" id="received-by-input" type="text" class="border border-primary w-full disabled:bg-secondary" hidden />
+            <input name="received-by-name" id="received-by-name-input" type="text" class="border border-primary w-full disabled:bg-secondary" disabled />
         </div>
         <footer class="flex justify-end gap-2">
             <button id="cd-create" class="bg-primary text-white py-2 px-4 rounded-md" value="create">Create</button>
@@ -39,7 +40,7 @@
     <div class="flex justify-between items-end mb-2">
         <div>
             <p>Supplier: <span id="cd-supplier" class="font-semibold">SupplierName</span> </p>
-            <p>Received by: <span id="cd-username" class="font-semibold">UserName</span> </p>
+            <p>Received by: <span id="cd-personnel" class="font-semibold">UserName</span> </p>
         </div>
         <div>
             <p>Actions: <span><button class="bg-primary text-white px-3 rounded-full py-1 text-xs" type="button" onclick="showDialog('consignedDetailsFormDialog')">EDIT CONSIGNED DETAILS</button></span></p>
@@ -113,6 +114,10 @@
     </form>
 </dialog>
 <script>
+    <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
+    var empid = <?= $_SESSION['empid'] ?>;
+    var empname = "<?= $_SESSION['empname'] ?>";
+
     function showDialog(dialogId, bool = true) {
         if (bool) {
             document.getElementById(dialogId).showModal();
@@ -161,10 +166,11 @@
                 //$('#id').val(consigned_details.cd_id);
                 $('#cd-id').val(consigned_details.cd_id);
                 $('#cd-supplier').text(consigned_details.company);
-                $('#cd-username').text(consigned_details.username);
+                $('#cd-personnel').text(consigned_details.personnel);
                 $('#cd-date').text(consigned_details.date);
                 $('#supplier-options').val(consigned_details.supp_id);
-                $('#received-by-input').val(consigned_details.userid);
+                $('#received-by-input').val(consigned_details.empid);
+                $('#received-by-name-input').val(consigned_details.personnel);
                 $('#date-delivered-input').val(consigned_details.date);
                 setCDCrudMode("update");
             },
@@ -223,7 +229,8 @@
     function newConsignedDetails() {
         $('#supplier-options').val("");
         $('#date-delivered-input').val("");
-        $('#received-by-input').val("");
+        $('#received-by-input').val(empid);
+        $('#received-by-name-input').val(empname);
         setCDCrudMode("create");
         showDialog("consignedDetailsFormDialog");
     }
