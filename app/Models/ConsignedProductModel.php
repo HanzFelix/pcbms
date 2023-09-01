@@ -36,6 +36,38 @@ class ConsignedProductModel extends ConnectionModel
         }
     }
 
+    function getConsignedProductWithBarcode($barcode)
+    {
+        $query = "SELECT 
+        cp.cp_id,
+        p.prod_name, 
+        cp.selling_price, 
+        SUM(cp.quantity) - COALESCE(SUM(ep.quantity), 0) - COALESCE(SUM(sp.qty_sold), 0) AS unsold_quantity
+        FROM 
+        `consigned_product` cp 
+        LEFT JOIN `product` p ON  p.`prod_id` = cp.`prod_id`
+        LEFT JOIN
+            expired_product ep ON ep.cp_id = cp.cp_id
+        LEFT JOIN
+            sale_product sp ON sp.cp_id = cp.cp_id 
+        WHERE 
+            cp.`barcode` = '$barcode'
+        GROUP BY
+            cp.cp_id";
+        try {
+            $this->openConnection();
+
+            $result = mysqli_query($this->conn, $query);
+
+            // return only one result
+            return mysqli_fetch_assoc($result);
+        } catch (Exception $e) {
+            $_SESSION["error_message"] = $e;
+            $e->getMessage();
+            return false;
+        }
+    }
+
     function createConsignedProduct($cd_id, $prod_id, $barcode, $particulars, $expiry_date, $unit_price, $selling_price, $quantity, $amount)
     {
         $query = "INSERT INTO `consigned_product` (`cd_id`, `prod_id`, `barcode`, `particulars`, `expiry_date`, `unit_price`, `selling_price`, `quantity`, `amount`) VALUES (?,?,?,?,?,?,?,?,?)";

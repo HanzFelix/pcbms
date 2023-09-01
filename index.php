@@ -26,6 +26,7 @@ $routes = [
 
     'getConsignedProductList' => 'ConsignedProductController@getConsignedProductList',
     'getConsignedProduct' => 'ConsignedProductController@getConsignedProduct',
+    'getConsignedProductWithBarcode' => 'ConsignedProductController@getConsignedProductWithBarcode',
     'updateConsignedProduct' => 'ConsignedProductController@updateConsignedProduct',
     'createConsignedProduct' => 'ConsignedProductController@createConsignedProduct',
     'deleteConsignedProduct' => 'ConsignedProductController@deleteConsignedProduct',
@@ -59,6 +60,9 @@ $routes = [
     'updateExpiredProduct' => 'ExpiredController@updateExpiredProduct',
     'deleteExpiredProduct' => 'ExpiredController@deleteExpiredProduct',
     'deleteExpiredProducts' => 'ExpiredController@deleteExpiredProducts',
+
+    'createSaleDetails' => 'SaleController@createSaleDetails',
+    'createSaleProduct' => 'SaleController@createSaleProduct',
 ];
 
 // xhttp handling
