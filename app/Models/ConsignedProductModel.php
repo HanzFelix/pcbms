@@ -13,8 +13,7 @@ class ConsignedProductModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -27,11 +26,9 @@ class ConsignedProductModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -59,11 +56,9 @@ class ConsignedProductModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -87,8 +82,7 @@ class ConsignedProductModel extends ConnectionModel
             $this->closeConnection();
             return true;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -126,8 +120,7 @@ class ConsignedProductModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -141,11 +134,8 @@ class ConsignedProductModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
-    //UPDATE `consigned_product` SET `cd_id` = '1', `prod_id` = '3', `barcode` = '1234568', `particulars` = '25.00', `unit_price` = '21.00', `selling_price` = '26.00', `quantity` = '9', `amount` = '189.00' WHERE `consigned_product`.`cp_id` = 3;
-    //INSERT INTO `consigned_product` (`cp_id`, `cd_id`, `prod_id`, `barcode`, `particulars`, `expiry_date`, `unit_price`, `selling_price`, `quantity`, `amount`) VALUES (NULL, '2', '4', '123456', '20.00', '2023-08-16', '20.00', '25.00', '10', '200.00');
 }

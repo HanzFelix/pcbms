@@ -1,6 +1,6 @@
 <?php
 
-// Defined routes and their corresponding actions
+// xhttp actions to controllers
 $routes = [
     'searchSupplier' => 'SupplierController@searchSupplier',
     'getSupplier' => 'SupplierController@getSupplier',

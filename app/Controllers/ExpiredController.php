@@ -119,7 +119,7 @@ class ExpiredController
         $expdetails = new ExpiredDetailsModel();
 
         $expired_details = $expdetails->getExpiredDetails($_GET['id']);
-        // Return first result
+
         echo json_encode($expired_details);
     }
 
@@ -129,7 +129,7 @@ class ExpiredController
         $expproduct = new ExpiredProductModel();
 
         $consigned_product = $expproduct->getExpiredProduct($_GET['id']);
-        // Return first result
+
         echo json_encode($consigned_product);
     }
 

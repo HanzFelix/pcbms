@@ -8,7 +8,7 @@ class ConsignedProductController
         $condetails = new ConsignedDetailsModel();
 
         $consigned_details = $condetails->getConsignedDetails($_GET['id']);
-        // Return first result
+
         echo json_encode($consigned_details);
     }
 
@@ -18,7 +18,7 @@ class ConsignedProductController
         $conproduct = new ConsignedProductModel();
 
         $consigned_product = $conproduct->getConsignedProduct($_GET['id']);
-        // Return first result
+
         echo json_encode($consigned_product);
     }
 
@@ -107,7 +107,6 @@ class ConsignedProductController
         $conproduct = new ConsignedProductModel();
         $conproduct->deleteConsignedProduct($_POST['cp-id']);
         echo "done";
-        //cp-id=3&product=3&barcode=1234568&particulars=25.00&expiry-date=2023-08-16&unit-price=21.00&selling-price=26.00&quantity=9&amount=189.00
     }
 
     public function createConsignedDetails()

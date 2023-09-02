@@ -1,7 +1,7 @@
 <?php
 $title = "Sold Products";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
@@ -32,18 +32,14 @@ ob_start();
     </footer>
 </dialog>
 <script>
-    // updated
     function getSaleDetailsList() {
         $.ajax({
             url: '/?action=getSaleDetailsList',
             method: 'GET',
             success: function(response) {
-                // Update the search results container
                 $('#sdtable').html(response);
 
-                // Add event listener to container when selecting a specific option
                 $('#sdtable').on('click', function(e) {
-                    // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;
                     }
@@ -51,12 +47,10 @@ ob_start();
                     getSaleProductList(sd_id);
                     getSaleDetails(sd_id)
                     $('#s-id').val(sd_id);
-                    // something to transfer vals
                     showDialog("saleProductListDialog");
                 });
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -76,14 +70,12 @@ ob_start();
                 $('#sd-date').text(response.date);
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
 
     }
 
-    // others
     function getSaleProductList(id) {
         $.ajax({
             url: '/?action=getSaleProductList',
@@ -95,8 +87,7 @@ ob_start();
                 $('#sptable').html(response);
             },
             error: function(xhr, status, error) {
-                // Handle errors, if any
-                console.log(error);
+                console.error(error);
             }
         });
     }

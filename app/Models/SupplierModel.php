@@ -13,8 +13,7 @@ class SupplierModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -28,8 +27,7 @@ class SupplierModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -42,11 +40,9 @@ class SupplierModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -60,8 +56,7 @@ class SupplierModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -75,8 +70,7 @@ class SupplierModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -90,8 +84,7 @@ class SupplierModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }

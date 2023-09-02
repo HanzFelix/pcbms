@@ -23,8 +23,7 @@ class SaleDetailsModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -47,11 +46,9 @@ class SaleDetailsModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -75,8 +72,7 @@ class SaleDetailsModel extends ConnectionModel
             $this->closeConnection();
             return $lastID;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -115,10 +111,8 @@ class SaleDetailsModel extends ConnectionModel
             mysqli_query($this->conn, $query);
             $this->closeConnection();
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
 }
-// INSERT INTO `sale_details` (`sd_id`, `supp_id`, `emp_id`, `order_date`, `status`) VALUES (NULL, '1', '1', '2023-08-23', 'Pending');

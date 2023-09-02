@@ -21,7 +21,7 @@ class OrderController
                 ];
             }
         } else {
-            $data[] = ['No results found'];
+            $data[] = ['No results found', '', '', '', ''];
         }
 
         $headerLabels = [
@@ -41,7 +41,7 @@ class OrderController
         $orddetails = new OrderDetailsModel();
 
         $order_details = $orddetails->getOrderDetails($_GET['id']);
-        // Return first result
+
         echo json_encode($order_details);
     }
 
@@ -51,7 +51,7 @@ class OrderController
         $ordproduct = new OrderProductModel();
 
         $order_product = $ordproduct->getOrderProduct($_GET['id']);
-        // Return first result
+
         echo json_encode($order_product);
     }
 

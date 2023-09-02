@@ -51,7 +51,6 @@ class ProductController
         $prodmodel = new ProductModel();
 
         $product = $prodmodel->getProduct($_GET['id']);
-        // Return first result
         echo json_encode($product);
     }
 
@@ -72,7 +71,6 @@ class ProductController
     {
         $prodmodel = new ProductModel();
 
-        // Retrieve the submitted form data
         $name = $_POST['product-name'];
         $shelf_life = $_POST['shelf-life'];
         $unit = $_POST['unit'];
@@ -86,7 +84,6 @@ class ProductController
     {
         $prodmodel = new ProductModel();
 
-        // Retrieve the submitted form data
         $prod_id = $_POST['id'];
         $name = $_POST['product-name'];
         $shelf_life = $_POST['shelf-life'];

@@ -1,18 +1,11 @@
 <?php
 $title = "Dashboard";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
 }
-
-$consignedDetailsHeaderLabels = [
-    "Date",
-    "Time",
-    "Log State",
-];
-
 
 include 'app/Controllers/DTRController.php';
 $dtrController = new DTRController();
@@ -32,18 +25,7 @@ ob_start();
             </div>
         </form>
         <div class="w-full overflow-x-auto">
-            <table class="text-left rounded-md overflow-hidden w-full">
-                <thead class="bg-accent bg-opacity-75 text-white border-primary sticky divide-x divide-white">
-                    <?php
-                    foreach ($consignedDetailsHeaderLabels as $label) {
-                        echo "<th class='px-4 py-2'>$label</th>";
-                    }
-                    ?>
-                </thead>
-                <tbody>
-                    <?= $dtrController->getLogs() ?>
-                </tbody>
-            </table>
+            <?php $dtrController->getLogs() ?>
         </div>
     </section>
 </main>

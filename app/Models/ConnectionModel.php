@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 class ConnectionModel
 {
     protected $dbhost = "localhost";
@@ -16,8 +17,7 @@ class ConnectionModel
         try {
             $this->conn = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
         }
     }
 
@@ -26,7 +26,7 @@ class ConnectionModel
         try {
             $this->conn = null;
         } catch (Exception $e) {
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
         }
     }
 

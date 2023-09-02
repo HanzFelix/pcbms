@@ -19,21 +19,26 @@ class DTRController
     public function getLogs()
     {
         $dtrmodel = new DTRModel();
-        $results = $dtrmodel->getLogs($_SESSION['empid']);
-        $html = '';
-        $i = 0;
-        foreach ($results as $row) {
-            $date = (new DateTime($row["log"]))->format("m/d/Y");
-            $time = (new DateTime($row["log"]))->format("h:i A");
-            $html .= '<tr class="bg-accent ' . ($i % 2 == 0 ? "bg-opacity-10" : "bg-opacity-25") . '">
-                <td class="px-4 py-2' . (date("m/d/Y") == $date ? " font-bold" : "") . '">' . $date . ' </td>
-                <td class="px-4 py-2">' . $time . ' </td>
-                <td class="px-4 py-2">' . $row["state"] . ' </td>
-            </tr>';
-            $i++;
+        $result = $dtrmodel->getLogs($_SESSION['empid']);
+        $data = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $date = (new DateTime($row["log"]))->format("m/d/Y");
+                $time = (new DateTime($row["log"]))->format("h:i A");
+                $data[] = [
+                    '<span class="' . (date("m/d/Y") == $date ? "font-bold" : "") . '">' . $date . '</span>',
+                    $time,
+                    $row["state"]
+                ];
+            }
+        } else {
+            $data[] = ['No results found', '', ''];
         }
 
-        return $html;
+        $headerLabels = ["Date", "Time", "Log State"];
+        include $_SERVER['DOCUMENT_ROOT'] . "/resources/partials/table.php";
+        echo generateTable($data, $headerLabels);
     }
 
     public function hasLoggedInToday()

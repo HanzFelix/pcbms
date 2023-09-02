@@ -1,14 +1,4 @@
 <?php
-/*sd_id
-date_issued
-cust_id
-empid
-
-sp_id
-sd_id
-cp_id
-qty_sold
-amount_sold*/
 
 class SaleController
 {

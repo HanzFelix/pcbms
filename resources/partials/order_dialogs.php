@@ -94,18 +94,14 @@
     </form>
 </dialog>
 <script>
-    // updated
     function getOrderDetailsList() {
         $.ajax({
             url: '/?action=getOrderDetailsList',
             method: 'GET',
             success: function(response) {
-                // Update the search results container
                 $('#odtable').html(response);
 
-                // Add event listener to container when selecting a specific option
                 $('#odtable').on('click', function(e) {
-                    // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;
                     }
@@ -116,7 +112,6 @@
                 });
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -130,12 +125,9 @@
                 id: query
             },
             success: function(response) {
-                // Update the search results container
                 $('#optable').html(response);
 
-                // Add event listener to container when selecting a specific option
                 $('#optable').on('click', function(e) {
-                    // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;
                     }
@@ -145,7 +137,6 @@
                 });
             },
             error: function(xhr, status, error) {
-                // Handle errors, if any
                 console.log(error);
             }
         });
@@ -186,7 +177,6 @@
         showDialog("orderDetailsFormDialog");
     }
 
-    // others
     function showDialog(dialogId, bool = true) {
         if (bool) {
             document.getElementById(dialogId).showModal();
@@ -217,7 +207,6 @@
                 }
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -234,7 +223,6 @@
                 }
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -299,11 +287,9 @@
         $('#op-form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
             var formData = $(this).serialize();
             formData += "&od-id=" + $('#od-id').val();
 
-            // Get the clicked button value
             switch ($(document.activeElement).val()) {
                 case "create":
                     $.ajax({
@@ -328,7 +314,6 @@
                             setOPCrudMode("");
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors if necessary
                             console.error(error);
                         }
                     });
@@ -344,7 +329,6 @@
                             setOPCrudMode("");
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors if necessary
                             console.error(error);
                         }
                     });
@@ -358,10 +342,8 @@
         $('#od-form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
             var formData = $(this).serialize();
 
-            // Get the clicked button value
             switch ($(document.activeElement).val()) {
                 case "create":
                     $.ajax({

@@ -29,7 +29,7 @@ requireLogin(true);
             }
         }
     </script>
-    <link rel="icon" href="images/vsulogo.ico" />
+    <link rel="icon" href="/public/img/vsulogo.ico" />
     <link rel="stylesheet" href="/public/css/custom.css">
 </head>
 

@@ -1,7 +1,7 @@
 <?php
-$title = "Manage Deliveries";
+$title = "Deliveries";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);

@@ -1,7 +1,7 @@
 <?php
 $title = "Dashboard";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
@@ -176,7 +176,6 @@ ob_start();
         $('.numeric-key').click(function() {
             var keyValue = $(this).val();
 
-            // Insert the value into the barcode input field
             var inputField = barcodeMode ? $('#barcode-input') : $('#quantity-input');
             var currentInput = inputField.val();
             inputField.val(currentInput + keyValue);

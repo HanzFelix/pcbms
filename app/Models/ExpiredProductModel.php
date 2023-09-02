@@ -40,8 +40,7 @@ class ExpiredProductModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }

@@ -16,7 +16,6 @@
 
             <select title="supplier" name="supplier" class="border border-primary w-full disabled:bg-secondary py-2 px-2" required id="supplier-options">
             </select>
-            <!--input name="supplier" id="supplier-input" type="text" class="border border-primary w-full disabled:bg-secondary" /-->
         </div>
         <div class="flex items-center gap-4">
             <p class="w-40 text-right">Date Delivered</p>
@@ -131,13 +130,9 @@
             url: '/?action=getConsignedDetailsList',
             method: 'GET',
             success: function(response) {
-                // Update the search results container
-                //$('#cdlisttbody').html(response);
                 $('#cdtable').html(response)
 
-                // Add event listener to container when selecting a specific option
                 $('#cdtable').on('click', function(e) {
-                    // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;
                     }
@@ -148,7 +143,6 @@
                 });
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -163,7 +157,6 @@
                 id: query
             },
             success: function(consigned_details) {
-                //$('#id').val(consigned_details.cd_id);
                 $('#cd-id').val(consigned_details.cd_id);
                 $('#cd-supplier').text(consigned_details.company);
                 $('#cd-personnel').text(consigned_details.personnel);
@@ -175,7 +168,6 @@
                 setCDCrudMode("update");
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -189,12 +181,9 @@
                 id: query
             },
             success: function(response) {
-                // Update the search results container
                 $('#cptable').html(response);
 
-                // Add event listener to container when selecting a specific option
                 $('#cptable').on('click', function(e) {
-                    // If selected container, or does not have a target attribute
                     if (!$(e.target).val()) {
                         return;
                     }
@@ -204,7 +193,6 @@
                 });
             },
             error: function(xhr, status, error) {
-                // Handle errors, if any
                 console.log(error);
             }
         });
@@ -246,7 +234,6 @@
                 }
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -263,7 +250,6 @@
                 }
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -335,11 +321,9 @@
         $('#cp-form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
             var formData = $(this).serialize();
             formData += "&cd-id=" + $('#cd-id').val();
 
-            // Get the clicked button value
             switch ($(document.activeElement).val()) {
                 case "create":
                     $.ajax({
@@ -365,7 +349,6 @@
                             setCPCrudMode("");
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors if necessary
                             console.error(error);
                         }
                     });
@@ -381,7 +364,6 @@
                             setCPCrudMode("");
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors if necessary
                             console.error(error);
                         }
                     });
@@ -395,10 +377,8 @@
         $('#cd-form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
             var formData = $(this).serialize();
 
-            // Get the clicked button value
             switch ($(document.activeElement).val()) {
                 case "create":
                     $.ajax({

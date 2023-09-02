@@ -5,7 +5,6 @@ class OrderProductModel extends ConnectionModel
 {
     function getOrderProductList($od_id)
     {
-        //`op_id`, `od_id`, `prod_id`, `quantity`
         $query = "SELECT op.`op_id` as `op-id`, p.`prod_name` as `product`, op.`quantity` as `quantity` FROM `order_product` op LEFT JOIN `product` p ON p.`prod_id` = op.`prod_id` WHERE op.`od_id` = '$od_id'";
         try {
             $this->openConnection();
@@ -14,8 +13,7 @@ class OrderProductModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -28,11 +26,9 @@ class OrderProductModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -56,8 +52,7 @@ class OrderProductModel extends ConnectionModel
             $this->closeConnection();
             return true;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -95,8 +90,7 @@ class OrderProductModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -110,10 +104,8 @@ class OrderProductModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
 }
-// INSERT INTO `order_product` (`op_id`, `od_id`, `prod_id`, `quantity`) VALUES (NULL, '1', '1', '12'), (NULL, '1', '6', '24');

@@ -1,6 +1,4 @@
 <?php
-
-// Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -13,7 +11,6 @@ function isUserLoggedIn()
 function requireLogin($bool)
 {
     if (!isUserLoggedIn() && $bool) {
-        // Redirect the user to the login page or show an error page
         header('Location: /login');
     } elseif (isUserLoggedIn() && !$bool) {
         switch ($_SESSION['role']) {
