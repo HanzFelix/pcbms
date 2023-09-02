@@ -95,7 +95,7 @@ requireLogin(true);
                         </div>
                     </li-->
                     <li>
-                        <a class="dropdown-item" href="/sales">Sales</a>
+                        <a class="dropdown-item" href="/cashier/sale">Sales</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="/logout">Log out</a>

@@ -63,6 +63,9 @@ $routes = [
 
     'createSaleDetails' => 'SaleController@createSaleDetails',
     'createSaleProduct' => 'SaleController@createSaleProduct',
+    'getSaleDetailsList' => 'SaleController@getSaleDetailsList',
+    'getSaleDetails' => 'SaleController@getSaleDetails',
+    'getSaleProductList' => 'SaleController@getSaleProductList',
 ];
 
 // xhttp handling
@@ -112,6 +115,8 @@ if ($request === '/' || $request === '/login') {
     include 'resources/views/manage/returned.php';
 } elseif ($request === '/cashier') {
     include 'resources/views/cashier/dashboard.php';
+} elseif ($request === '/cashier/sale') {
+    include 'resources/views/cashier/sale.php';
 } elseif ($request === '/personnel') {
     include 'resources/views/personnel/dashboard.php';
 } elseif ($request === '/logout') {

@@ -3,10 +3,16 @@ include $_SERVER['DOCUMENT_ROOT'] . "/app/Models/ConnectionModel.php";
 
 class SaleProductModel extends ConnectionModel
 {
-    function getSaleProductList($od_id)
+    function getSaleProductList($sd_id)
     {
-        //`sp_id`, `od_id`, `prod_id`, `quantity`
-        $query = "SELECT sp.`sp_id` as `sp-id`, p.`prod_name` as `product`, sp.`quantity` as `quantity` FROM `sale_product` sp LEFT JOIN `product` p ON p.`prod_id` = sp.`prod_id` WHERE sp.`od_id` = '$od_id'";
+        $query = "SELECT sp.`sp_id` as `sp-id`, 
+        p.`prod_name` as `product`, 
+        sp.`qty_sold` as `quantity`, 
+        sp.`amount_sold` as `amount` 
+        FROM `sale_product` sp 
+        LEFT JOIN `consigned_product` cp ON cp.cp_id = sp.cp_id
+        LEFT JOIN `product` p ON p.`prod_id` = cp.`prod_id` 
+        WHERE sp.`sd_id` = '$sd_id'";
         try {
             $this->openConnection();
 

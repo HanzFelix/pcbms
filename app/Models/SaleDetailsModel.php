@@ -5,7 +5,17 @@ class SaleDetailsModel extends ConnectionModel
 {
     function getSaleDetailsList()
     {
-        $query = "SELECT sd.`sd_id` as `sd_id`, s.`company` as `company`, sd.`order_date` as `date`,  CONCAT(p.`lname`, ', ', p.`fname`) as `personnel`, sd.`status` as `status` FROM `sale_details` sd INNER JOIN `supplier` s ON s.supp_id = sd.supp_id INNER JOIN `personnel` p ON p.empid = sd.emp_id";
+        $query = "SELECT 
+            sd.sd_id, 
+            sd.date_issued as `date`, 
+            c.name as customer, 
+            CONCAT(p.lname, ', ', p.fname) as personnel
+        FROM 
+            sale_details sd 
+        LEFT JOIN 
+            customer c ON c.cust_id = sd.cust_id
+        LEFT JOIN 
+            personnel p ON p.empid = sd.empid";
         try {
             $this->openConnection();
 
@@ -21,7 +31,17 @@ class SaleDetailsModel extends ConnectionModel
 
     function getSaleDetails($sd_id)
     {
-        $query = "SELECT sd.`sd_id` as `sd_id`, s.`company` as `supplier`, sd.`order_date` as `date`,  CONCAT(p.`lname`, ', ', p.`fname`) as `personnel`, sd.`status` as `status`, sd.`emp_id` as `emp_id`, sd.`supp_id` as `supp_id` FROM `sale_details` sd INNER JOIN `supplier` s ON s.supp_id = sd.supp_id INNER JOIN `personnel` p ON p.empid = sd.emp_id WHERE sd.sd_id = '$sd_id'";
+        $query = "SELECT 
+            sd.date_issued as `date`, 
+            c.name as customer, 
+            CONCAT(p.lname, ', ', p.fname) as personnel
+        FROM 
+            sale_details sd 
+        LEFT JOIN 
+            customer c ON c.cust_id = sd.cust_id
+        LEFT JOIN 
+            personnel p ON p.empid = sd.empid
+        WHERE sd.sd_id = '$sd_id'";
         try {
             $this->openConnection();
 
