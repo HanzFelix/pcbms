@@ -1,7 +1,7 @@
 <?php
 $title = "Login";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
@@ -54,7 +54,7 @@ ob_start();
                         <option>personnel</option>
                     </select>
                     <article class="flex">
-                        <button type="submit" name="submit" value="login" class="mt-2 rounded-lg border-2 border-transparent p-2 px-6 text-sm font-medium text-white transition-colors bg-primary hover:bg-accent active:bg-secondary active:text-accent">Log in</button>
+                        <button type="submit" name="submit" value="login" class="mt-2 bg-accent text-white py-2 px-4 rounded-md">Log in</button>
                     </article>
                 </form>
             </div>

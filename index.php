@@ -1,6 +1,7 @@
 <?php
+require_once 'app/dotenv.php';
 
-// Defined routes and their corresponding actions
+// xhttp actions to controllers
 $routes = [
     'searchSupplier' => 'SupplierController@searchSupplier',
     'getSupplier' => 'SupplierController@getSupplier',
@@ -26,10 +27,46 @@ $routes = [
 
     'getConsignedProductList' => 'ConsignedProductController@getConsignedProductList',
     'getConsignedProduct' => 'ConsignedProductController@getConsignedProduct',
+    'getConsignedProductWithBarcode' => 'ConsignedProductController@getConsignedProductWithBarcode',
     'updateConsignedProduct' => 'ConsignedProductController@updateConsignedProduct',
     'createConsignedProduct' => 'ConsignedProductController@createConsignedProduct',
     'deleteConsignedProduct' => 'ConsignedProductController@deleteConsignedProduct',
     'deleteConsignedProducts' => 'ConsignedProductController@deleteConsignedProducts',
+
+    'getOrderDetailsList' => 'OrderController@getOrderDetailsList',
+    'getOrderDetails' => 'OrderController@getOrderDetails',
+    'createOrderDetails' => 'OrderController@createOrderDetails',
+    'updateOrderDetails' => 'OrderController@updateOrderDetails',
+    'deleteOrderDetails' => 'OrderController@deleteOrderDetails',
+
+    'getOrderProductList' => 'OrderController@getOrderProductList',
+    'getOrderProduct' => 'OrderController@getOrderProduct',
+    'createOrderProduct' => 'OrderController@createOrderProduct',
+    'updateOrderProduct' => 'OrderController@updateOrderProduct',
+    'deleteOrderProduct' => 'OrderController@deleteOrderProduct',
+    'deleteOrderProducts' => 'OrderController@deleteOrderProducts',
+
+    'getExpiredListBySupplier' => 'ExpiredController@getExpiredListBySupplier',
+    'getExpiredProductListFromSupplier' => 'ExpiredController@getExpiredProductListFromSupplier',
+    'createExpiredDetails' => 'ExpiredController@createExpiredDetails',
+    'createExpiredProduct' => 'ExpiredController@createExpiredProduct',
+
+    'getExpiredDetails' => 'ExpiredController@getExpiredDetails',
+    'getExpiredDetailsList' => 'ExpiredController@getExpiredDetailsList',
+    'updateExpiredDetails' => 'ExpiredController@updateExpiredDetails',
+    'deleteExpiredDetails' => 'ExpiredController@deleteExpiredDetails',
+
+    'getExpiredProductList' => 'ExpiredController@getExpiredProductList',
+    'getExpiredProduct' => 'ExpiredController@getExpiredProduct',
+    'updateExpiredProduct' => 'ExpiredController@updateExpiredProduct',
+    'deleteExpiredProduct' => 'ExpiredController@deleteExpiredProduct',
+    'deleteExpiredProducts' => 'ExpiredController@deleteExpiredProducts',
+
+    'createSaleDetails' => 'SaleController@createSaleDetails',
+    'createSaleProduct' => 'SaleController@createSaleProduct',
+    'getSaleDetailsList' => 'SaleController@getSaleDetailsList',
+    'getSaleDetails' => 'SaleController@getSaleDetails',
+    'getSaleProductList' => 'SaleController@getSaleProductList',
 ];
 
 // xhttp handling
@@ -71,8 +108,16 @@ if ($request === '/' || $request === '/login') {
     include 'resources/views/manage/product.php';
 } elseif ($request === '/manage/supplier') {
     include 'resources/views/manage/supplier.php';
+} elseif ($request === '/manage/order') {
+    include 'resources/views/manage/order.php';
+} elseif ($request === '/manage/expired') {
+    include 'resources/views/manage/expired.php';
+} elseif ($request === '/manage/returned') {
+    include 'resources/views/manage/returned.php';
 } elseif ($request === '/cashier') {
     include 'resources/views/cashier/dashboard.php';
+} elseif ($request === '/cashier/sale') {
+    include 'resources/views/cashier/sale.php';
 } elseif ($request === '/personnel') {
     include 'resources/views/personnel/dashboard.php';
 } elseif ($request === '/logout') {

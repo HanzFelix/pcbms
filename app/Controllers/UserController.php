@@ -5,6 +5,9 @@ class UserController
 {
     public function login()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $username = $_POST['username'];
         $password = $_POST['password'];
         $role = $_POST['role'];
@@ -43,12 +46,12 @@ class UserController
 
     public function logout()
     {
-        // Destroy the user session
+        // Destroy user session
         session_start();
         session_unset();
         session_destroy();
 
-        // Redirect the user to the login page or any other appropriate page
+        // Redirect to login page
         header('Location: /login');
         exit;
     }

@@ -1,59 +1,27 @@
 <?php
-$title = "Manage Products";
+$title = "Products";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
 }
 
-$productHeaderLabels = [
-    "Product Name",
-    "Shelf life (days)",
-    "Unit",
-    "Appreciation",
-    "Max. Quantity",
-    "Action"
-];
-
 ob_start();
 ?>
 <main class="container mx-auto bg-shade px-4">
     <h2 class="text-center text-3xl py-4 font-bold">Product Data CRUD</h2>
-    <!--div class="flex gap-4 px-4 items-start">
-        <section class="flex flex-col w-3/12 gap-2">
-            <form class="flex" action="#" id="search-form">
-                <input class="w-full" type="text" name="q" id="search" placeholder="Type few letters here" />
-                <button class="bg-primary text-white py-2 px-4 rounded-r-md" id="search-button">GO</button>
-            </form>
-            <div multiple id="search-results" class="min-h-[12rem] flex flex-col items-stretch">
-
-            </div>
-        </section>
-        
-    </div-->
     <div class="flex items-center justify-end gap-2 my-2">
-        <button class="bg-accent text-white py-2 px-4 rounded-md" id="new-button">NEW</button>
+        <button class="bg-primary text-white py-2 px-4 rounded-md" id="new-button">NEW PRODUCT</button>
     </div>
-    <div class="w-full overflow-x-auto">
-        <table class="text-left rounded-md overflow-hidden w-full">
-            <thead class="bg-accent bg-opacity-75 text-white border-primary sticky divide-x divide-white">
-                <?php
-                foreach ($productHeaderLabels as $label) {
-                    echo "<th class='px-4 py-2'>$label</th>";
-                }
-                ?>
-            </thead>
-            <tbody id="productlisttbody">
-            </tbody>
-        </table>
+    <div class="w-full overflow-x-auto" id="ptable">
     </div>
 </main>
 
 <dialog class="backdrop:backdrop-brightness-50 bg-secondary p-4" id="productDialog">
     <header class="flex items-start justify-between">
         <h1 class="text-2xl font-bold" id="testh1">Product Details</h1>
-        <button type="button" id="close-product-modal" class="ml-auto inline-flex items-center rounded-lg p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-orange-600 transition-colors">
+        <button onclick="showDialog('productDialog', false)" type="button" id="close-product-modal" class="ml-auto inline-flex items-center rounded-lg p-1.5 text-sm text-zinc-400 hover:bg-zinc-200 hover:text-orange-600 transition-colors">
             <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
             </svg>
@@ -88,13 +56,22 @@ ob_start();
             <input name="max-quantity" id="max-quantity" type="number" class="border border-primary w-full disabled:bg-secondary" />
         </div>
         <div class="flex items-center justify-end gap-2">
-            <button type="submit" id="delete-button" value="delete" class="bg-accent text-white py-2 px-4 rounded-md" hidden>Delete</button>
-            <button type="submit" id="save-button" value="update" class="bg-primary text-white py-2 px-4 rounded-md" hidden>Save</button>
             <button type="submit" id="create-button" value="create" class="bg-primary text-white py-2 px-4 rounded-md" hidden>Create</button>
+            <button type="submit" id="save-button" value="update" class="bg-primary text-white py-2 px-4 rounded-md" hidden>Save</button>
+            <button type="submit" id="delete-button" value="delete" class="bg-accent text-white py-2 px-4 rounded-md" hidden>Delete</button>
+            <button type="button" onclick="showDialog('productDialog',false)" class="bg-accent text-white py-2 px-4 rounded-md" value="0">Cancel</button>
         </div>
     </form>
 </dialog>
 <script>
+    function showDialog(dialogId, bool = true) {
+        if (bool) {
+            document.getElementById(dialogId).showModal();
+        } else {
+            document.getElementById(dialogId).close();
+        }
+    }
+
     function getProduct(query) {
         $.ajax({
             url: '/?action=getProduct',
@@ -104,7 +81,6 @@ ob_start();
                 id: query
             },
             success: function(product) {
-                // Update the search results container
                 $('#id').val(product.prod_id);
                 $('#product-name').val(product.prod_name);
                 $('#shelf-life').val(product.shelf_life);
@@ -114,7 +90,6 @@ ob_start();
                 setCrudMode("update");
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -157,23 +132,19 @@ ob_start();
             url: '/?action=getProductList',
             method: 'GET',
             success: function(response) {
-                // Update the search results container
-                $('#productlisttbody').html(response);
+                $('#ptable').html(response);
 
-                // Add event listener to container when selecting a specific option
-                $('#productlisttbody').on('click', function(e) {
-                    // If selected container, or does not have a target attribute
+                $('#ptable').on('click', function(e) {
                     if (!$(e.target).val()) {
                         return;
                     }
                     var prod_id = $(e.target).val();
 
                     getProduct(prod_id);
-                    document.getElementById("productDialog").showModal();
+                    showDialog("productDialog")
                 });
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -184,9 +155,7 @@ ob_start();
         $('#product-form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
             var formData = $(this).serialize();
-            // Get the clicked button value
             switch ($(document.activeElement).val()) {
                 case "create":
                     $.ajax({
@@ -196,7 +165,7 @@ ob_start();
                         success: function(response) {
                             clearText(true);
                             setCrudMode("");
-                            document.getElementById("productDialog").close();
+                            showDialog("productDialog", false);
                             getProductList();
                         }
                     });
@@ -209,13 +178,11 @@ ob_start();
                         success: function(response) {
                             clearText(true);
                             setCrudMode("");
-                            document.getElementById("productDialog").close();
+                            showDialog("productDialog", false);
                             getProductList();
-                            console.log(response);
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors, if any
-                            console.log(error);
+                            console.error(error);
                         }
                     });
                     break;
@@ -227,7 +194,7 @@ ob_start();
                         success: function(response) {
                             clearText(true);
                             setCrudMode("");
-                            document.getElementById("productDialog").close();
+                            showDialog("productDialog", false);
                             getProductList();
                         }
                     });
@@ -237,49 +204,12 @@ ob_start();
             }
         });
 
-        // Add event listener to the search button
-        $('#search-form').submit(function(event) {
-            event.preventDefault();
-
-            var formData = $(this).serialize();
-            $.ajax({
-                url: '/?action=searchProduct',
-                method: 'GET',
-                data: formData,
-                success: function(response) {
-                    // Update the search results container
-                    $('#search-results').html(response);
-
-                    // Add event listener to container when selecting a specific option
-                    $('#search-results').on('click', function(e) {
-                        // If selected container
-                        if (!$(e.target).val()) {
-                            return;
-                        }
-                        var prod_id = $(e.target).val();
-
-                        getProduct(prod_id);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors, if any
-                    console.log(error);
-                }
-            });
-        });
-
         $('#new-button').on('click', function() {
             clearText(false);
             setCrudMode("create");
-            document.getElementById("productDialog").showModal();
+            showDialog("productDialog");
         });
 
-        $('#close-product-modal').on('click', function() {
-            document.getElementById("productDialog").close();
-        });
-
-        // show all results on ready
-        //$('#search-form').submit();
         getProductList();
     });
 </script>

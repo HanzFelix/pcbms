@@ -2,7 +2,6 @@
 include $_SERVER['DOCUMENT_ROOT'] . "/app/auth.php";
 requireLogin(true);
 
-// Continue with other application logic
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +28,8 @@ requireLogin(true);
             }
         }
     </script>
-    <link rel="icon" href="images/vsulogo.ico" />
+    <link rel="icon" href="/public/img/vsulogo.ico" />
+    <link rel="stylesheet" href="/public/css/custom.css">
 </head>
 
 <body class="bg-shade text-txt">
@@ -44,7 +44,7 @@ requireLogin(true);
                         </a>
                     </li>
                     <li>
-                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownReceive" data-dropdown-trigger="hover" class="text-white text-center inline-flex items-center" type="button">
+                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownReceive" data-dropdown-trigger="click" class="text-white text-center inline-flex items-center focus:text-secondary" type="button">
                             Receive Delivery
                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -72,7 +72,7 @@ requireLogin(true);
                         </div>
                     </li>
                     <li>
-                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownProduct" data-dropdown-trigger="hover" class="text-white text-center inline-flex items-center" type="button">
+                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownProduct" data-dropdown-trigger="click" class="text-white text-center inline-flex items-center  focus:text-secondary" type="button">
                             Order Products
                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -82,13 +82,18 @@ requireLogin(true);
                         <div id="dropdownProduct" class="z-10 hidden bg-shade divide-y divide-gray-100 rounded-lg shadow w-44">
                             <ul class="py-2 text-sm text-txt " aria-labelledby="dropdownHoverButton">
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-accent hover:text-white">
+                                    <a href="/manage/order" class="block px-4 py-2 hover:bg-accent hover:text-white">
                                         Manage Purchase Order
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-accent hover:text-white">
+                                    <a href="/manage/expired" class="block px-4 py-2 hover:bg-accent hover:text-white">
                                         Manage Expired Products
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/manage/returned" class="block px-4 py-2 hover:bg-accent hover:text-white">
+                                        Manage Returned Products
                                     </a>
                                 </li>
                             </ul>

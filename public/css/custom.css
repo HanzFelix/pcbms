@@ -1,0 +1,47 @@
+dialog[open] {
+  animation: fadein 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+    slidein 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+dialog::backdrop {
+  animation: fadein 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+#dropdownReceive,
+#dropdownProduct {
+  animation: fadein 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slidein {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+/* Fade out animation */
+dialog[close] {
+  animation: fadeout 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes fadeout {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+}

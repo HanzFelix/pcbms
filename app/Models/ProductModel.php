@@ -5,7 +5,19 @@ class ProductModel extends ConnectionModel
 {
     function getProductList()
     {
-        $query = "SELECT * FROM product";
+        $query = "SELECT
+            p.*, 
+            COALESCE(SUM(cp.quantity), 0) - COALESCE(SUM(ep.quantity), 0) - COALESCE(SUM(sp.qty_sold), 0) AS total_quantity
+        FROM 
+            product p 
+        LEFT JOIN
+            consigned_product cp ON p.prod_id = cp.prod_id 
+        LEFT JOIN
+            expired_product ep ON ep.cp_id = cp.cp_id
+        LEFT JOIN
+            sale_product sp ON sp.cp_id = cp.cp_id 
+        GROUP BY
+            p.prod_id;";
         try {
             $this->openConnection();
 
@@ -13,8 +25,7 @@ class ProductModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -28,8 +39,7 @@ class ProductModel extends ConnectionModel
 
             return $result;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -42,11 +52,9 @@ class ProductModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -61,8 +69,7 @@ class ProductModel extends ConnectionModel
             mysqli_query($this->conn, $query);
             return true;
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }
@@ -101,8 +108,7 @@ class ProductModel extends ConnectionModel
 
             mysqli_query($this->conn, $query);
         } catch (Exception $e) {
-            $_SESSION["error_message"] = $e;
-            $e->getMessage();
+            $_SESSION["error_message"] = $e->getMessage();
             return false;
         }
     }

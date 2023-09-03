@@ -1,7 +1,7 @@
 <?php
-$title = "Manage Suppliers";
+$title = "Suppliers";
 $error = "";
-// Check if an error message exists
+
 if (isset($_SESSION['error_message'])) {
     $error = $_SESSION['error_message'];
     unset($_SESSION['error_message']);
@@ -70,7 +70,7 @@ ob_start();
             },
             success: function(supplier) {
                 $('#company-name, #contact-person, #sex, #address, #phone').prop('disabled', false);
-                // Update the search results container
+
                 $('#id').val(supplier.supp_id);
                 $("#company-name").val(supplier.company);
                 $('#contact-person').val(supplier.contact_person);
@@ -80,7 +80,6 @@ ob_start();
                 setCrudMode("update");
             },
             error: function(xhr, status, error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -125,15 +124,12 @@ ob_start();
         $('#phone').prop('disabled', isDisabled);
     }
 
-
+    // event listeners
     $(document).ready(function() {
         $('#supplier-form').submit(function(event) {
             event.preventDefault();
-
-            // Get the form data
             var formData = $(this).serialize();
 
-            // Get the clicked button value
             switch ($(document.activeElement).val()) {
                 case "create":
                     $.ajax({
@@ -176,8 +172,6 @@ ob_start();
             }
         });
 
-
-        // Add event listener to the search button
         $('#search-form').submit(function(event) {
             event.preventDefault();
 
@@ -187,12 +181,9 @@ ob_start();
                 method: 'GET',
                 data: formData,
                 success: function(response) {
-                    // Update the search results container
                     $('#search-results').html(response);
 
-                    // Add event listener to container when selecting a specific option
                     $('#search-results').on('click', function(e) {
-                        // If selected container
                         if (!$(e.target).val()) {
                             return;
                         }
@@ -202,7 +193,6 @@ ob_start();
                     });
                 },
                 error: function(xhr, status, error) {
-                    // Handle errors, if any
                     console.log(error);
                 }
             });

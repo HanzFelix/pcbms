@@ -1,8 +1,6 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . "/app/auth.php";
 requireLogin(false);
-
-// Continue with other application logic
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,11 +27,12 @@ requireLogin(false);
             }
         }
     </script>
-    <link rel="icon" href="images/vsulogo.ico" />
+    <link rel="icon" href="/public/img/vsulogo.ico" />
 </head>
 
 <body class="bg-shade text-txt">
     <?php echo $content; ?>
+    <?php echo $error; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
 
