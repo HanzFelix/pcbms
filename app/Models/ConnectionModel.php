@@ -5,17 +5,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
 class ConnectionModel
 {
-    protected $dbhost = "localhost";
-    protected $dbuser = "root";
-    protected $dbpass = "";
-    protected $dbname = "tumulak_pcbms_db";
-
     protected $conn = null;
 
     public function openConnection()
     {
         try {
-            $this->conn = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
+            $this->conn = mysqli_connect($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
         } catch (Exception $e) {
             $_SESSION["error_message"] = $e->getMessage();
         }

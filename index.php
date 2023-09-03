@@ -1,4 +1,5 @@
 <?php
+require_once 'app/dotenv.php';
 
 // xhttp actions to controllers
 $routes = [
