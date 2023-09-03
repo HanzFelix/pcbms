@@ -40,7 +40,6 @@ class ConsignedDetailsModel extends ConnectionModel
 
             $result = mysqli_query($this->conn, $query);
 
-            // return only one result
             return mysqli_fetch_assoc($result);
         } catch (Exception $e) {
             $_SESSION["error_message"] = $e->getMessage();

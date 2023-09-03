@@ -2,7 +2,6 @@
 include $_SERVER['DOCUMENT_ROOT'] . "/app/auth.php";
 requireLogin(true);
 
-// Continue with other application logic
 ?>
 <!DOCTYPE html>
 <html>
