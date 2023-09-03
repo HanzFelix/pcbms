@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2023 at 04:58 AM
+-- Generation Time: Sep 03, 2023 at 02:34 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -67,11 +67,11 @@ CREATE TABLE `consigned_product` (
 --
 
 INSERT INTO `consigned_product` (`cp_id`, `cd_id`, `prod_id`, `barcode`, `particulars`, `expiry_date`, `unit_price`, `selling_price`, `quantity`, `amount`) VALUES
-(1, 1, 3, '78123791', '15 grams', '2023-06-14', '20.00', '30.00', 12, '300.00'),
+(1, 1, 3, '78123791', '250 mL', '2023-06-14', '20.00', '30.00', 12, '300.00'),
 (2, 1, 4, '78123792', '15 grams', '2023-06-18', '20.00', '30.00', 12, '300.00'),
-(13, 1, 6, '6795658', '15ml', '2023-08-22', '20.00', '24.00', 15, '300.00'),
+(13, 1, 6, '6795658', '200 grams', '2023-08-22', '20.00', '24.00', 15, '300.00'),
 (14, 2, 3, '4564646', '15 grams', '2023-08-23', '20.00', '25.00', 20, '600.00'),
-(15, 5, 4, '123456789', '50 grams', '2023-09-30', '20.00', '24.00', 30, '600.00'),
+(15, 5, 4, '123456789', '100 grams', '2023-09-30', '20.00', '24.00', 30, '600.00'),
 (16, 5, 6, '123456799', '40 grams', '2023-09-27', '20.00', '24.00', 15, '300.00');
 
 -- --------------------------------------------------------
@@ -251,9 +251,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_name`, `shelf_life`, `unit`, `appreciation`, `max_quantity`) VALUES
-(1, 'Jeremy\'s Kamote Chips', 23, 'bag', '20.00', 30),
+(1, 'Kamote Chips', 23, 'bag', '20.00', 30),
 (3, 'Carabao Milk', 2, 'bottle', '20.00', 20),
-(4, 'Cassava Chips', 200, 'pack', '15.00', 10),
+(4, 'Cassava Cookies', 200, 'pack', '15.00', 10),
 (6, 'Dried Mango Products', 30, 'pack', '20.00', 50),
 (7, 'Banana Chips', 24, 'bottle', '20.00', 20);
 
@@ -319,9 +319,9 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`supp_id`, `company`, `contact_person`, `sex`, `phone`, `address`) VALUES
-(1, 'ThatCompanya', 'ThatPersona', 'Male', '09291234567', 'ThatPlace, ThatIsland'),
-(2, 'SomeOrganization', 'SomePerson', 'Female', '+639123456789', 'Somewhere, OutThere'),
-(3, 'Large Companya', 'Goodman Johnson', 'Female', 'No phone', 'North City, Califivia');
+(1, 'Southern Corporation', 'Hello Bigman', 'Male', '09291234567', 'Lodalo, Southern Province'),
+(2, 'SteamPowered Harvests', 'Kiana Kentucky', 'Female', '+639123456789', 'Magic St., Mech City'),
+(3, 'Hudson\'s Locals', 'Goodman Hudson IV', 'Male', '09999999999', 'North Gale, Califivia');
 
 -- --------------------------------------------------------
 
