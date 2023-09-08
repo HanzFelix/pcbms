@@ -7,7 +7,7 @@ Pasalubong Center - Business Management System (PCBMS) is a web system written i
 > [!NOTE]
 > This setup assumes that you have [XAMPP](https://www.apachefriends.org/) installed, with MySQL and Apache running.
 
-1. Clone the repo
+1. Clone the repo with Github's Code > Open with VSCode/GithubDesktop or:
 
 ```shell
 git clone https://github.com/HanzFelix/pcbms.git
